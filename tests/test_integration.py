@@ -125,7 +125,6 @@ class CanLoiGather(unittest.TestCase):
             self.assertEqual(code, 0, err)
             self.assertEqual(snapshots(read_jsonl(q))[0]["stock"], {"bong_sung": 1})
 
-    @unittest.expectedFailure
     def test_ngat_mat_gio_kho_rong(self):
         """Máu về 0 -> faint, gather_end reason 'fainted', giỏ mất hết, kho rỗng."""
         with Workdir() as w:
@@ -141,7 +140,6 @@ class CanLoiGather(unittest.TestCase):
             self.assertEqual(code, 0, err)
             self.assertEqual(snapshots(read_jsonl(q))[0]["stock"], {})
 
-    @unittest.expectedFailure
     def test_gio_day_khong_nhat_them(self):
         cap = tuning()["gather"]["hold_capacity"]
         with Workdir() as w:

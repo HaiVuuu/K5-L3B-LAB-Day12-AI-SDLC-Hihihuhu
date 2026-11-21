@@ -42,7 +42,9 @@ class Contract(unittest.TestCase):
             for key in ("oxygen_ticks", "hp", "oxygen_max_ticks", "hp_max", "at_surface"):
                 self.assertIn(key, s["player"])
             self.assertEqual(s["hold_capacity"], tuning_gather()["hold_capacity"])
-            self.assertEqual(len(s["fish"]), 6)
+            # TICKET-02 §4.1: v1.1 sinh 8 đàn; v1.0 vẫn dùng danh sách 6 đàn.
+            initial = tuning_gather()["fish_initial"]
+            self.assertEqual(len(s["fish"]), initial if isinstance(initial, int) else len(initial))
             self.assertTrue(all(n["pos"][1] == 0 for n in s["nodes"]))
 
     def test_con_02_deterministic_bytes(self):
@@ -62,17 +64,24 @@ class Contract(unittest.TestCase):
             self.assertEqual(run_headless("--mode", "gather", "--seed", "1", "--ticks", "10", "--inputs", bad, "--out", out)[0], 2)
             self.assertFalse(os.path.exists(out), "lỗi đầu vào phải thoát TRƯỚC khi ghi đầu ra")
             self.assertEqual(run_headless("--mode", "gather", "--seed", "1", "--ticks", "-1", "--out", out)[0], 2)
-            for button in ("jump", "attack"):  # nút lạ / của phase sau
+            for button in ("jump", "unknown_button"):  # v1.1 nhận attack và bỏ qua khi chưa bật Lao.
                 unk = write_json(w.path("unk.json"), frames({"tick": 0, button: True}))
                 self.assertEqual(run_headless("--mode", "gather", "--seed", "1", "--ticks", "10", "--inputs", unk, "--out", out)[0], 2, button)
             self.assertFalse(os.path.exists(out))
 
-    def test_con_03_old_and_future_modes_rejected(self):
+    def test_con_03_old_mode_rejected_and_day_follows_contract_version(self):
         with Workdir() as w:
             out = w.path("o.jsonl")
-            for mode in ("river", "day"):
-                self.assertEqual(run_headless("--mode", mode, "--seed", "1", "--ticks", "0", "--out", out)[0], 2, mode)
+            self.assertEqual(run_headless("--mode", "river", "--seed", "1", "--ticks", "0", "--out", out)[0], 2)
             self.assertFalse(os.path.exists(out))
+            # TICKET-02 §4.1: day được hỗ trợ từ v1.1, vẫn bị từ chối ở v1.0.
+            with open("game.contract.json", encoding="utf-8") as f:
+                version = json.load(f)["contract_version"]
+            day_out = w.path("day.jsonl")
+            code, error = run_headless("--mode", "day", "--seed", "1", "--ticks", "0", "--out", day_out)
+            self.assertEqual(code, 2 if version == "1.0" else 0, error)
+            if version != "1.0":
+                self.assertEqual(snapshots(read_jsonl(day_out))[0]["mode"], "day")
             old = write_json(w.path("old.json"), {"river": {"hold": []}})
             self.assertEqual(run_headless("--mode", "gather", "--seed", "1", "--ticks", "0", "--scenario", old, "--out", out)[0], 2)
 

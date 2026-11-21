@@ -1,0 +1,9 @@
+$ /opt/homebrew/opt/python@3.13/bin/python3.13 -m unittest test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process -v
+test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.234s
+
+OK
+
+exit_code=0

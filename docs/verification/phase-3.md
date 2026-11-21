@@ -17,6 +17,23 @@ Ghi trung thực: Phase 3 đổi **kho đếm theo loại → kho cá thể `{id
 | Nhả & thử giữ lại đúng 1 lần khi cá thể giữ bị ươn; thiếu thì `unfulfillable` | — | — | **Chưa làm** (chờ sim/quan v1.2) |
 | UI hiển thị độ tươi, cảnh báo hàng ươn | Chụp màn hình: snapshot giả v1.2 và **gather v1.2 thật của Minh** (cá thể fresh 30,005 → ươn tick 1) | CL-09 trong `docs/clarify.md` (nhánh `feat/p3-bao-ui`) | Đạt với gather; phần kho quán/Shop chưa kiểm (chờ quan v1.2) |
 
+## Hồi quy khi bật manifest v1.2 (chạy lại sau khi `main` có PR #10 của Minh, 12:14)
+`main` đã có gather v1.2 "staged" và manifest ứng viên `docs/contracts/game.contract.v1.2.json`, nhưng `game.contract.json` vẫn 1.1. Để biết cái giá của việc bật v1.2, đã chạy cả bộ test trên bản sao của `main` với manifest ứng viên làm `game.contract.json` ([full-suite-on-v12-manifest.txt](../proof/phase-3/full-suite-on-v12-manifest.txt)).
+
+- Trên manifest hiện tại của `main` (1.1): **161 test, OK (skipped=10)** ([full-suite.txt](../proof/phase-3/full-suite.txt)).
+- Trên manifest v1.2: **33 test fail** (21 fail, 12 lỗi). Đây là hệ quả dự kiến của đổi schema kho (fixture bộ đếm → cá thể) và quan chưa v1.2, **không phải lỗi mới của luật**:
+
+| File test | Số test fail | Nguyên nhân | Ai đổi |
+|---|---|---|---|
+| `test_gather.py` | 11 | fixture giỏ/kho đếm (`hold` là chuỗi) | Minh (đã ghi trong tài liệu của Minh: test CLI chạy v1.2 trong thư mục tạm) |
+| `test_gather_p2.py` | 7 | như trên | Minh |
+| `test_integration.py` | 8 | fixture `hold` chuỗi + so kho `{kind: số}`; phía quán còn dict | Hùng (QA) — **chưa migrate**, và phần quán chờ Hải |
+| `test_smoke_p1.py` | 2 | fixture kho đếm | cần đổi theo luật v1.2, ghi lý do ở commit khi bật |
+| `test_smoke_p3.py` | 2 | `QuanSim` chưa nhận kho cá thể (`dict(inventory)` crash) | Hải |
+| `test_quan_p2.py`, `test_live_ui.py`, `test_python_starter_units.py` | 1 + 1 + 1 | `quan`/`day` còn kho đếm; fixture hold chuỗi | Hải / Hùng |
+
+`test_scenario_qa.py` (15 test) pass trên **cả hai** manifest (sau khi sửa: nhánh bộ đếm của `scenario.py` truyền `contract_version="1.1"` thay vì để `validate_items` tự theo manifest, và helper test ép về v1.1 khi cần).
+
 ## Điều chưa xác nhận
 - Ticket-03 chỉ có ở nhánh `nguyendinhminh` (chưa vào `main`). Chưa viết test cho `base_price`, thử giữ lại khi ươn, `cook_started.data.items`: chờ quan v1.2. Chưa làm phần mở rộng (dòng lũ, đặt trước, `current`, `reservations`) — nhóm 4 người không bắt buộc.
 - Scenario: nhận biết v1.2 bằng `tuning._contract_version == "1.2"` (đúng thiết kế chuyển tiếp của Minh), không bằng sự có mặt của `freshness`. Chưa kiểm "id vật lý duy nhất giữa các nơi chứa" xuyên `day` vì scenario `day` chưa được headless nạp.

@@ -260,7 +260,7 @@ def _validate_quan(b, tuning):
         if _is_v12(tuning):
             _check_items("stock", b["stock"], tuning)
         else:
-            validate_items(b["stock"], ingredient_kinds(tuning))
+            validate_items(b["stock"], ingredient_kinds(tuning), contract_version="1.1")  # nhánh bộ đếm cũ: không phụ thuộc manifest
     p = b.get("player", {})
     if not isinstance(p, dict) or set(p) - QUAN_PLAYER_KEYS:
         raise BadInput("quan.player chỉ có pos và vel")

@@ -1,0 +1,594 @@
+# Toàn bộ test trên bản sao của main (HEAD vutienhung sau khi merge origin/main 12:14) với manifest ứng viên v1.2 (docs/contracts/game.contract.v1.2.json thành game.contract.json)
+# Mục đích: biết test nào phải đổi khi bật v1.2. KHÔNG phải trạng thái main (main vẫn contract 1.1).
+
+## Số lượng thất bại theo file test
+     11 test_gather
+      7 test_gather_p2
+      8 test_integration
+      1 test_live_ui
+      1 test_python_starter_units
+      1 test_quan_p2
+      2 test_smoke_p1
+      2 test_smoke_p3
+
+## Chi tiết
+FF....E.E.EEFFF...E....F.............FE.E..E..E......FF...............................FFFssFFFFF..E..........E...E...................Exception in thread Thread-68 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
+Exception in thread Thread-70 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
+...Exception in thread Thread-90 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 23: character maps to <undefined>
+.F.........F...ssF..F......
+======================================================================
+ERROR: test_dock_before_harvest_at_exact_radius_on_last_tick (test_gather.GatherRules.test_dock_before_harvest_at_exact_radius_on_last_tick)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 145, in test_dock_before_harvest_at_exact_radius_on_last_tick
+    s = self.session({"pos": pos}, nodes=[node(x=pos[0])], hold=["ca_loc"], time_left_ticks=1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 28, in session
+    return Session("gather", self.tuning,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_faint_lifo_precedes_catch_and_time (test_gather.GatherRules.test_faint_lifo_precedes_catch_and_time)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 89, in test_faint_lifo_precedes_catch_and_time
+    s = self.session({"pos": [20, 5], "hp": 1, "oxygen_ticks": 0,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 28, in session
+    return Session("gather", self.tuning,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_fish_whole_yield_at_radius_tie_and_hold_order (test_gather.GatherRules.test_fish_whole_yield_at_radius_tie_and_hold_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 159, in test_fish_whole_yield_at_radius_tie_and_hold_order
+    s = self.session({"pos": [20, 5]}, fish=[fish("F10", 20 + r), fish("F2", 20 - r)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 28, in session
+    return Session("gather", self.tuning,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_full_hold_keeps_node_ready (test_gather.GatherRules.test_full_hold_keeps_node_ready)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 120, in test_full_hold_keeps_node_ready
+    s = self.session(hold=hold, nodes=[node()])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 28, in session
+    return Session("gather", self.tuning,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_partial_capacity_keeps_nearest_fish_and_does_not_try_smaller (test_gather.GatherRules.test_partial_capacity_keeps_nearest_fish_and_does_not_try_smaller)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 168, in test_partial_capacity_keeps_nearest_fish_and_does_not_try_smaller
+    s = self.session({"pos": [20, 5]},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 28, in session
+    return Session("gather", self.tuning,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_six_ingredients_roundtrip_without_changing_schema (test_gather_p2.P2ManifestAndInputs.test_six_ingredients_roundtrip_without_changing_schema)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 72, in test_six_ingredients_roundtrip_without_changing_schema
+    write_inventory(path, items)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 93, in write_inventory
+    items = validate_items(items, contract_version=contract_version)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 56, in validate_items
+    return validate_instances(items, kinds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 37, in validate_instances
+    raise BadInput("items v1.2 phải là mảng cá thể, không nhận kho đếm")
+chonoi.errors.BadInput: items v1.2 phải là mảng cá thể, không nhận kho đếm
+
+======================================================================
+ERROR: test_choke_pierces_invulnerability_and_does_not_drop_hold (test_gather_p2.P2Monsters.test_choke_pierces_invulnerability_and_does_not_drop_hold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 326, in test_choke_pierces_invulnerability_and_does_not_drop_hold
+    sim = self.sim({"pos": [20, 12], "oxygen_ticks": 0, "zero_oxy_ticks": 59,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 33, in sim
+    return GatherSim(self.tuning, {"player": {"pos": [20, 0], **(player or {})},
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_hit_boundary_half_lifo_and_only_nearest_natural_id (test_gather_p2.P2Monsters.test_hit_boundary_half_lifo_and_only_nearest_natural_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 263, in test_hit_boundary_half_lifo_and_only_nearest_natural_id
+    sim = self.sim({"pos": [20, 12]}, hold=hold,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 33, in sim
+    return GatherSim(self.tuning, {"player": {"pos": [20, 0], **(player or {})},
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_lethal_hit_drops_half_then_faints_remaining_lifo (test_gather_p2.P2Monsters.test_lethal_hit_drops_half_then_faints_remaining_lifo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 316, in test_lethal_hit_drops_half_then_faints_remaining_lifo
+    sim = self.sim({"pos": [20, 12], "hp": 1}, hold=hold, monsters=[crocodile()], time_left_ticks=1)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 33, in sim
+    return GatherSim(self.tuning, {"player": {"pos": [20, 0], **(player or {})},
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong (test_live_ui.LiveGates.test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_live_ui.py", line 72, in test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong
+    g = self.game("day", sc, days=1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_live_ui.py", line 41, in game
+    g = LiveGame(mode, tuning(), scenario or {}, 1, **kw)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\live.py", line 55, in __init__
+    self._reset(show_menu=menu)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\live.py", line 58, in _reset
+    self.session = Session(*self._args)
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 27, in build_sim
+    return DaySession(tuning, scenario, streams, days=days)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\day.py", line 103, in __init__
+    self.sim = self._build_gather()
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\day.py", line 147, in _build_gather
+    sim = GatherSim(tuning, g_sc, self.streams, IdAllocator())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_session_steps_gather_and_dock (test_python_starter_units.Units.test_session_steps_gather_and_dock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_python_starter_units.py", line 65, in test_session_steps_gather_and_dock
+    s = Session("gather", tuning, {"hold": ["ca_loc"]}, 1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 25, in build_sim
+    return GatherSim(tuning, scenario, streams, ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+ERROR: test_day_loop_shop_upgrade_applies_next_day_and_pause (test_quan_p2.QuanPhase2Tests.test_day_loop_shop_upgrade_applies_next_day_and_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_quan_p2.py", line 87, in test_day_loop_shop_upgrade_applies_next_day_and_pause
+    sess = Session("day", v11_tuning(), sc, seed=1, days=2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 27, in build_sim
+    return DaySession(tuning, scenario, streams, days=days)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\day.py", line 103, in __init__
+    self.sim = self._build_gather()
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\day.py", line 147, in _build_gather
+    sim = GatherSim(tuning, g_sc, self.streams, IdAllocator())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\gather.py", line 60, in __init__
+    self.hold = validate_instances(self.hold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\inventory.py", line 41, in validate_instances
+    raise BadInput("cá thể cần đúng id,kind,fresh")
+chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
+
+======================================================================
+FAIL: test_faint_overwrites_inventory_with_empty_and_stops_once (test_gather.GatherHeadless.test_faint_overwrites_inventory_with_empty_and_stops_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 246, in test_faint_overwrites_inventory_with_empty_and_stops_once
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_real_harvest_transfers_to_quan_and_replays_byte_identically (test_gather.GatherHeadless.test_real_harvest_transfers_to_quan_and_replays_byte_identically)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 287, in test_real_harvest_transfers_to_quan_and_replays_byte_identically
+    self.assertEqual(code, 0, err)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\headless.py", line 94, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\headless.py", line 82, in main
+    run(a.mode, tuning, scenario, a.seed, frames, a.ticks, a.out, a.snapshot_every,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inventory=inventory, inventory_out=a.inventory_out, days=days, buttons=buttons)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 121, in run
+    sess = Session(mode, tuning, scenario, seed, inventory, days=days)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 28, in build_sim
+    return QuanSim(tuning, scenario, streams, ids, inventory=inventory)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\quan.py", line 36, in __init__
+    self.stock = dict(inventory if inventory is not None else scenario.get("stock", {}))
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: dictionary update sequence element #0 has length 3; 2 is required
+
+
+======================================================================
+FAIL: test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) (button='interact')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 217, in test_last_tick_harvest_and_catch_enter_inventory
+    self.assertEqual(rows[-1], ("gather_end", {"reason": "time", "inventory": {"items": {kind: qty}}}))
+AssertionError: Tuples differ: ('gat[41 chars] {'items': [{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100}]}}) != ('gat[41 chars] {'items': {'bong_sung': 1}}})
+
+First differing element 1:
+{'rea[25 chars]: {'items': [{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100}]}}
+{'rea[25 chars]: {'items': {'bong_sung': 1}}}
+
++ ('gather_end', {'inventory': {'items': {'bong_sung': 1}}, 'reason': 'time'})
+- ('gather_end',
+-  {'inventory': {'items': [{'fresh': 100, 'id': 'I1', 'kind': 'bong_sung'}]},
+-   'reason': 'time'})
+
+======================================================================
+FAIL: test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) (button='catch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 217, in test_last_tick_harvest_and_catch_enter_inventory
+    self.assertEqual(rows[-1], ("gather_end", {"reason": "time", "inventory": {"items": {kind: qty}}}))
+AssertionError: Tuples differ: ('gat[47 chars]ms': [{'id': 'I1', 'kind': 'ca_linh', 'fresh':[98 chars]}]}}) != ('gat[47 chars]ms': {'ca_linh': 3}}})
+
+First differing element 1:
+{'rea[32 chars]ms': [{'id': 'I1', 'kind': 'ca_linh', 'fresh':[97 chars]0}]}}
+{'rea[32 chars]ms': {'ca_linh': 3}}}
+
++ ('gather_end', {'inventory': {'items': {'ca_linh': 3}}, 'reason': 'time'})
+- ('gather_end',
+-  {'inventory': {'items': [{'fresh': 100, 'id': 'I1', 'kind': 'ca_linh'},
+-                           {'fresh': 100, 'id': 'I2', 'kind': 'ca_linh'},
+-                           {'fresh': 100, 'id': 'I3', 'kind': 'ca_linh'}]},
+-   'reason': 'time'})
+
+======================================================================
+FAIL: test_nearest_ready_node_at_radius_and_natural_id_tie (test_gather.GatherRules.test_nearest_ready_node_at_radius_and_natural_id_tie)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 106, in test_nearest_ready_node_at_radius_and_natural_id_tie
+    self.assertEqual(s.sim.hold, ["bong_sung"] * self.g["node_yield"])
+AssertionError: Lists differ: [{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100}] != ['bong_sung']
+
+First differing element 0:
+{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100}
+'bong_sung'
+
+- [{'fresh': 100, 'id': 'I1', 'kind': 'bong_sung'}]
++ ['bong_sung']
+
+======================================================================
+FAIL: test_tuning_controls_oxygen_choke_yield_capacity_and_cooldown (test_gather.GatherRules.test_tuning_controls_oxygen_choke_yield_capacity_and_cooldown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather.py", line 225, in test_tuning_controls_oxygen_choke_yield_capacity_and_cooldown
+    self.assertEqual(s.sim.hold, ["bong_sung"] * 2)
+AssertionError: Lists differ: [{'id': 'I1', 'kind': 'bong_sung', 'fresh'[51 chars]100}] != ['bong_sung', 'bong_sung']
+
+First differing element 0:
+{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100}
+'bong_sung'
+
++ ['bong_sung', 'bong_sung']
+- [{'fresh': 100, 'id': 'I1', 'kind': 'bong_sung'},
+-  {'fresh': 100, 'id': 'I2', 'kind': 'bong_sung'}]
+
+======================================================================
+FAIL: test_manifest_values_and_all_five_plan_totals (test_gather_p2.P2ManifestAndInputs.test_manifest_values_and_all_five_plan_totals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 43, in test_manifest_values_and_all_five_plan_totals
+    self.assertEqual(load_contract()["contract_version"], "1.1")
+AssertionError: '1.2' != '1.1'
+- 1.2
+?   ^
++ 1.1
+?   ^
+
+
+======================================================================
+FAIL: test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='fish')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 362, in test_new_fish_and_plant_export_inventory_to_separate_quan_process
+    self.assertEqual(read_inventory(inventory), {kind: amount})
+AssertionError: [{'id': 'I1', 'kind': 'ca_keo', 'fresh': [46 chars]100}] != {'ca_keo': 2}
+
+======================================================================
+FAIL: test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='plant')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_gather_p2.py", line 362, in test_new_fish_and_plant_export_inventory_to_separate_quan_process
+    self.assertEqual(read_inventory(inventory), {kind: amount})
+AssertionError: [{'id': 'I1', 'kind': 'keo_neo', 'fresh': 100}] != {'keo_neo': 1}
+
+======================================================================
+FAIL: test_gio_day_khong_nhat_them (test_integration.CanLoiGather.test_gio_day_khong_nhat_them)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 149, in test_gio_day_khong_nhat_them
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_hai_nut_mat_nuoc_vao_kho (test_integration.CanLoiGather.test_hai_nut_mat_nuoc_vao_kho)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 122, in test_hai_nut_mat_nuoc_vao_kho
+    self.assertEqual(read(inv), {"items": {"bong_sung": 1}})
+AssertionError: {'items': [{'id': 'I1', 'kind': 'bong_sung', 'fresh': 99.96666666666667}]} != {'items': {'bong_sung': 1}}
+- {'items': [{'fresh': 99.96666666666667, 'id': 'I1', 'kind': 'bong_sung'}]}
++ {'items': {'bong_sung': 1}}
+
+======================================================================
+FAIL: test_ngat_mat_gio_kho_rong (test_integration.CanLoiGather.test_ngat_mat_gio_kho_rong)
+Máu về 0 -> faint, gather_end reason 'fainted', giỏ mất hết, kho rỗng.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 133, in test_ngat_mat_gio_kho_rong
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_chuoi_giu_nguyen_kho_qua_hai_buoi (test_integration.ChuoiGatherKhoQuan.test_chuoi_giu_nguyen_kho_qua_hai_buoi)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 59, in test_chuoi_giu_nguyen_kho_qua_hai_buoi
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_chuoi_tat_dinh_theo_seed (test_integration.ChuoiGatherKhoQuan.test_chuoi_tat_dinh_theo_seed)
+Cùng seed + cùng đầu vào -> file kho và JSONL của cả hai buổi trùng từng byte.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 74, in test_chuoi_tat_dinh_theo_seed
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_het_gio_gather_van_xuat_kho_dung_mot_lan (test_integration.ChuoiGatherKhoQuan.test_het_gio_gather_van_xuat_kho_dung_mot_lan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 93, in test_het_gio_gather_van_xuat_kho_dung_mot_lan
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_kho_rong_van_vao_quan_duoc (test_integration.ChuoiGatherKhoQuan.test_kho_rong_van_vao_quan_duoc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 84, in test_kho_rong_van_vao_quan_duoc
+    self.assertEqual(read(inv), {"items": {}})
+AssertionError: {'items': []} != {'items': {}}
+- {'items': []}
+?           ^^
+
++ {'items': {}}
+?           ^ +
+
+
+======================================================================
+FAIL: test_quan_chay_het_ca_voi_kho_tu_gather (test_integration.ChuoiGatherKhoQuan.test_quan_chay_het_ca_voi_kho_tu_gather)
+Quán hết giờ đúng ticks cấu hình và kho không mất khi chưa có khách (khung hiện tại).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_integration.py", line 103, in test_quan_chay_het_ca_voi_kho_tu_gather
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_inv_01_gather_writes_inventory_quan_reads_it (test_smoke_p1.Integration.test_inv_01_gather_writes_inventory_quan_reads_it)
+Ví dụ smoke test trong PRD-0 mục G: cập bến ở tick 0, quán đọc kho đúng nội dung.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_smoke_p1.py", line 218, in test_inv_01_gather_writes_inventory_quan_reads_it
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_time_ends_gather_and_keeps_hold (test_smoke_p1.Movement.test_time_ends_gather_and_keeps_hold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_smoke_p1.py", line 198, in test_time_ends_gather_and_keeps_hold
+    self.assertEqual(code, 0, err)
+AssertionError: 2 != 0 : Ä‘áº§u vÃ o sai: hold: má»—i cÃ¡ thá»ƒ pháº£i cÃ³ Ä‘Ãºng id, kind, fresh
+
+
+======================================================================
+FAIL: test_file_kho_ca_the_hop_le_exit_0 (test_smoke_p3.KhoSai.test_file_kho_ca_the_hop_le_exit_0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_smoke_p3.py", line 101, in test_file_kho_ca_the_hop_le_exit_0
+    self.assertEqual(self._quan_exit(w, {"items": [it("I1"), it("I2", "ca_keo", 0)]}), 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_ban_giao_cung_tick_khong_hao_them (test_smoke_p3.Spoilage.test_ban_giao_cung_tick_khong_hao_them)
+Cập bến tick 0: kho ghi ra và quán đọc lại cùng id/kind; quán tick 0 chưa hao thêm so với kho.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\tests\test_smoke_p3.py", line 74, in test_ban_giao_cung_tick_khong_hao_them
+    self.assertEqual(code, 0, err)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\headless.py", line 94, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\headless.py", line 82, in main
+    run(a.mode, tuning, scenario, a.seed, frames, a.ticks, a.out, a.snapshot_every,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inventory=inventory, inventory_out=a.inventory_out, days=days, buttons=buttons)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 121, in run
+    sess = Session(mode, tuning, scenario, seed, inventory, days=days)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\runner.py", line 28, in build_sim
+    return QuanSim(tuning, scenario, streams, ids, inventory=inventory)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check2\chonoi\sim\quan.py", line 36, in __init__
+    self.stock = dict(inventory if inventory is not None else scenario.get("stock", {}))
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: dictionary update sequence element #0 has length 3; 2 is required
+
+
+----------------------------------------------------------------------
+Ran 161 tests in 75.284s
+
+FAILED (failures=21, errors=12, skipped=4)

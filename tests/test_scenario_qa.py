@@ -20,6 +20,9 @@ from helpers import Workdir, events, frames, read_jsonl, run_headless, write_jso
 
 def tuning(v12=False):
     t = copy.deepcopy(load_contract()["tuning"])
+    if not v12:  # ép về v1.1 để ca "bộ đếm cũ" đúng cả khi manifest đang chạy là 1.2 (có freshness + _contract_version 1.2)
+        t.pop("freshness", None)
+        t["_contract_version"] = "1.1"
     if v12:
         t["freshness"] = {"initial": 100, "gather_decay_per_s": 0.5, "quan_decay_per_s": 0.25, "spoiled_below": 30}
         t["_contract_version"] = "1.2"  # load_contract gắn khi manifest là 1.2

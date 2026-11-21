@@ -10,6 +10,6 @@ test_nguong_30_phat_spoiled_o_tick_1 (test_smoke_p3.Spoilage.test_nguong_30_phat
 Ticket-03: giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` ở tick 1. ... skipped 'game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2'
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.000s
+Ran 8 tests in 0.001s
 
 OK (skipped=8)

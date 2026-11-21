@@ -110,12 +110,11 @@ class ChuoiGatherKhoQuan(unittest.TestCase):
 
 
 class CanLoiGather(unittest.TestCase):
-    """Cần gather lát 1-2 (Minh). Gỡ expectedFailure khi lõi xong."""
+    """Gather lát 1-2 (Minh): kịch bản đi qua hết, kho phải đúng."""
 
-    @unittest.expectedFailure
     def test_hai_nut_mat_nuoc_vao_kho(self):
         with Workdir() as w:
-            sc = {"nodes": [{"id": "N1", "kind": "bong_sung", "pos": [50, 0], "regrow_ticks": 600}],
+            sc = {"nodes": [{"id": "N1", "kind": "bong_sung", "pos": [50, 0]}],
                   "random_fish": False, "player": {"pos": [50, 0]}, "time_left_ticks": 5}
             code, err, inv, out = gather_to_inventory(w, sc, frames({"tick": 0, "interact": True}), 100)
             self.assertEqual(code, 0, err)

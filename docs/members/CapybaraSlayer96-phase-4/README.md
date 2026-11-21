@@ -36,7 +36,7 @@ Bật tương phản cao bằng phím **H** (lưu trong localStorage) hoặc th�
 
 Mỗi cảnh báo có chữ và biểu tượng tam giác "!" vẽ bằng canvas (không phụ thuộc font emoji). Ở chế độ tương phản cao, cảnh báo là khung vàng, chữ đen, viền trắng/đen dày. Viền đuổi đổi sang nét đứt trắng, nên vẫn nhận ra được mà không cần phân biệt màu.
 
-Ảnh chụp tự động bằng Edge headless, chạy `chonoi.live --no-menu --scenario` với các file sau: [oxy](scenario-oxy.json), [thủy quái](scenario-monster.json), [quán](scenario-quan-warnings.json). Đây là bằng chứng render. Ngoài ảnh tự động, Bảo đã tự chơi thử cả ba cảnh báo ở chế độ tương phản cao: cả ba đều hiện đúng.
+Ảnh chụp tự động bằng Edge headless, chạy `chonoi.live --no-menu --scenario` với các file sau: [oxy](scenario-oxy.json), [thủy quái](scenario-monster.json), [quán](scenario-quan-warnings.json). Đây là bằng chứng render. Ngoài ảnh tự động, Bảo đã tự chơi thử cả ba cảnh báo ở chế độ tương phản cao ngày 2026-11-21, trên commit `921d8ac` (mã UI của `d3ef384`): cả ba đều hiện đúng. Lần chơi này không có ảnh hay video riêng.
 
 Chơi thử nên bỏ `--no-menu`: menu giữ sim đứng yên tới khi bấm Enter. Với `--no-menu`, sim chạy ngay khi bật server nên khách mất kiên nhẫn trước khi mở trình duyệt. `scenario-monster.json` cố ý đặt người chơi cách thủy quái 10 m để chụp cảnh báo; game thật đặt thủy quái M1 cách điểm xuất phát 62,8 m.
 

@@ -1,0 +1,23 @@
+{
+  "scope": "gather only; not the full-day benchmark",
+  "ticks": 10800,
+  "end": {
+    "type": "end",
+    "ticks": 10800,
+    "sim_tick": 10800,
+    "mode": "gather",
+    "state": "finished",
+    "reason": "time",
+    "money": 0,
+    "earned": 0,
+    "reputation": 3.0,
+    "score": 300
+  },
+  "wall_seconds": 0.5051,
+  "fish_spawned": 4,
+  "fish_at_end": 12,
+  "jsonl_sha256": "bc2c647b3a6d805a4d736789ffd0b32b7c1daaf9d955c3a02cd89f4dbbeaee1a",
+  "inventory": {
+    "items": {}
+  }
+}

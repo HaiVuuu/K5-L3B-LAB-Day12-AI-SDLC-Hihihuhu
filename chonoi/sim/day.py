@@ -22,7 +22,7 @@ class ShopSim:
         shop_cfg = tuning.get("shop", {})
         self.upgrades_cfg = shop_cfg.get("upgrades", {})
         self.time_left_ticks = int(shop_cfg.get("max_ticks", 600))
-        self.stock = dict(stock)
+        self.stock = list(stock) if isinstance(stock, list) else dict(stock)
         self.money = money
         self.earned = earned
         self.reputation = reputation
@@ -31,8 +31,12 @@ class ShopSim:
         self.reason = None
 
     def snapshot(self) -> dict:
+        if isinstance(self.stock, list):
+            stock_view = list(self.stock)
+        else:
+            stock_view = {k: self.stock[k] for k in sorted(self.stock) if self.stock[k] > 0}
         return {
-            "stock": {k: self.stock[k] for k in sorted(self.stock) if self.stock[k] > 0},
+            "stock": stock_view,
             "time_left_ticks": self.time_left_ticks,
         }
 
@@ -99,6 +103,7 @@ class DaySession:
         self.done = False
         self.reason = None
         self._pending_initial_events = []
+        self.item_ids = IdAllocator()
 
         self.sim = self._build_gather()
         self._queue_day_start_events()
@@ -166,6 +171,12 @@ class DaySession:
             reputation=self.reputation,
         )
 
+    def _stock_for_shop(self):
+        if getattr(self.sim, "v12", False):
+            return [{"id": it["id"], "kind": it["kind"], "fresh": round(it["fresh"], 3)}
+                    for it in sorted(self.sim.stock_items, key=lambda x: x["id"])]
+        return {k: v for k, v in self.sim.stock.items() if v > 0}
+
     def _queue_day_start_events(self):
         plan = self._plan_for_day(self.day)
         self._pending_initial_events.extend([
@@ -202,12 +213,20 @@ class DaySession:
         if self.sim.done:
             if cur_phase == "gather":
                 inv = self.sim.inventory_items()
+                if "freshness" in self.base_tuning and isinstance(inv, dict) and isinstance(inv.get("items"), list):
+                    inv = inv["items"]
+                elif "freshness" in self.base_tuning and isinstance(inv, dict):
+                    # Tương thích nếu GatherSim chưa nâng v1.2: chuyển count -> cá thể fresh 100
+                    inv = [
+                        {"id": self.item_ids.new("I"), "kind": k, "fresh": 100.0}
+                        for k in sorted(inv) for _ in range(inv[k])
+                    ]
                 self.phase = "quan"
                 self.phase_tick = 0
                 self.sim = self._build_quan(inv)
                 tagged.append(("phase_start", {}, "quan", cur_day))
             elif cur_phase == "quan":
-                stock = {k: v for k, v in self.sim.stock.items() if v > 0}
+                stock = self._stock_for_shop()
                 self.phase = "shop"
                 self.phase_tick = 0
                 self.sim = ShopSim(self.base_tuning, stock, self.money, self.earned, self.reputation, self.upgrades)

@@ -1,0 +1,22 @@
+test_bo_dem_cu_bi_tu_choi_khi_la_v12 (test_scenario_qa.KhoCaThe.test_bo_dem_cu_bi_tu_choi_khi_la_v12) ... ok
+test_co_freshness_nhung_manifest_van_v11_thi_dung_bo_dem (test_scenario_qa.KhoCaThe.test_co_freshness_nhung_manifest_van_v11_thi_dung_bo_dem)
+Manifest chuyển tiếp: có `freshness` nhưng contract_version vẫn 1.1 -> chưa bật kho cá thể. ... ok
+test_cua_so_gia_tri_hong (test_scenario_qa.KhoCaThe.test_cua_so_gia_tri_hong) ... ok
+test_giu_cho_phai_du_cong_thuc (test_scenario_qa.KhoCaThe.test_giu_cho_phai_du_cong_thuc) ... ok
+test_giu_cho_theo_id (test_scenario_qa.KhoCaThe.test_giu_cho_theo_id) ... ok
+test_hop_le (test_scenario_qa.KhoCaThe.test_hop_le) ... ok
+test_ngung_o_dung_30 (test_scenario_qa.KhoCaThe.test_ngung_o_dung_30)
+fresh = 30 chưa ươn (ươn là < 30): giữ chỗ được; 29.99 thì không. ... ok
+test_v11_van_dung_bo_dem_cu (test_scenario_qa.KhoCaThe.test_v11_van_dung_bo_dem_cu) ... ok
+test_loai_la_van_bi_tu_choi (test_scenario_qa.Kinds.test_loai_la_van_bi_tu_choi) ... ok
+test_nut_keo_neo_va_ca_keo_duoc_chap_nhan (test_scenario_qa.Kinds.test_nut_keo_neo_va_ca_keo_duoc_chap_nhan) ... ok
+test_sau_nguyen_lieu_tu_contract (test_scenario_qa.Kinds.test_sau_nguyen_lieu_tu_contract) ... ok
+test_headless_monsters_sai_exit_2 (test_scenario_qa.Monsters.test_headless_monsters_sai_exit_2) ... ok
+test_headless_nhan_monsters_va_cho_ca_sau_chay (test_scenario_qa.Monsters.test_headless_nhan_monsters_va_cho_ca_sau_chay) ... ok
+test_monsters_hop_le (test_scenario_qa.Monsters.test_monsters_hop_le) ... ok
+test_monsters_khong_hop_le_bi_tu_choi (test_scenario_qa.Monsters.test_monsters_khong_hop_le_bi_tu_choi) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.803s
+
+OK

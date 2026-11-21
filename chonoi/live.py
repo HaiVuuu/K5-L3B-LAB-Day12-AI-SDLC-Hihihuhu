@@ -122,6 +122,7 @@ class LiveGame:
             phase = snap.get("phase", self.mode)
             snap["meta"] = self.tuning.get(phase, {})
             snap["catalog"] = {"menu": self.tuning.get("menu", {}), "shop": self.tuning.get("shop", {}),
+                               "freshness": self.tuning.get("freshness", {}),
                                "days": getattr(self.session.sim, "target_days", 1)}
             snap["gate"] = self.gate
             if phase == "shop" and hasattr(getattr(self.session.sim, "sim", None), "upgrades"):

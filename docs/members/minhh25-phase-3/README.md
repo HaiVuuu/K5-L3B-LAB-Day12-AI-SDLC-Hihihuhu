@@ -4,6 +4,8 @@ Ngày ghi: 2026-11-21. Nguồn: `docs/requirements/phase-3.txt`; phạm vi theo 
 
 Commit code/test: `ae469d9` trên `nguyendinhminh`; tài liệu và log đi trong commit kế tiếp. Không đẩy main hoặc gắn tag trong phần bàn giao này.
 
+Sau khi nhận main `de90282` có UI Phase 2 mới, đã gộp và chạy lại **128/128 test đạt**, gồm 30 test Phase 3 và HTTP/UI mới: [merge-main-tests.txt](merge-main-tests.txt). Log 122 test phía dưới là kết quả trước cập nhật UI.
+
 ## Kết quả thực chạy
 
 | Kiểm tra | Kết quả | Log |

@@ -25,3 +25,4 @@ Bản nháp do Codex ghi theo công việc thực tế trong phiên; Minh cần 
 - AI: Codex thực hiện theo yêu cầu triển khai phần Minh sau khi PR Phase 2 đã merge. Không có số đo token/model/chi phí. Một điểm dễ sai được xử lý: làm tròn fresh về 3 chữ số sẽ khiến JSONL/file lệch và có thể đổi tick qua ngưỡng; đã tách precision fresh và thêm test đọc lại.
 - Chưa ghi nhận người thật review hoặc DoD toàn nhóm. Minh cần xác nhận phản tư; Hải/Hùng cần nối hai đầu, QA chạy bản v1.2 tích hợp trước khi bật manifest và tag.
 - Kết quả thực chạy: 122/122 test toàn repo, 30/30 test nhánh v1.2 phần Minh và 4/4 replay legacy đạt. Log/bằng chứng tick ngưỡng và file/event ở `docs/members/minhh25-phase-3/`.
+- Sau khi gộp main de90282 (UI Phase 2): chạy lại 128/128 test đạt, log `merge-main-tests.txt` trong thư mục bằng chứng Phase 3 cá nhân.

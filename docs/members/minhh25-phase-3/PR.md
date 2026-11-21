@@ -14,7 +14,7 @@ Phase 3 · Minh — inventory/contract và sim/gather, theo change request Mùa 
 - ADR, API tích hợp, manifest v1.2 ứng viên và 30 test mới.
 
 ## Kiểm chứng
-- **122/122 test đạt**, gồm regression bản chuyển tiếp và HTTP live.
+- **128/128 test đạt** sau cập nhật main có UI Phase 2, gồm regression bản chuyển tiếp và HTTP/UI live.
 - **30/30 test Phase 3 đạt**, gồm CLI v1.2 trong thư mục tạm.
 - **4/4 replay v1.1 đạt**; kho cũ tiếp tục bàn giao đúng trong giai đoạn chuyển tiếp.
 - Log: `docs/members/minhh25-phase-3/`; API: `docs/contracts/phase-3.md`.

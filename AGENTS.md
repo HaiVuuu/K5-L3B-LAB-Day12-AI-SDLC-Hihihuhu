@@ -32,3 +32,5 @@
 - PRD-0 đầy đủ: `docs/requirements/phase-1.txt`; TICKET-02: `docs/requirements/phase-2.txt`. Đọc đúng phase trước khi sửa luật.
 - Phase 2 phần Minh: `PYTHONPATH=tests:. python3 -m unittest discover -s tests -p test_gather_p2.py -v`. API day/active_upgrades và lý do cập nhật regression ở `docs/contracts/phase-2.md`.
 - Tuân thủ quyền sở hữu `docs/plan/phase-2.md`: Minh không sửa scenario/runner/day/UI hay báo cáo QA; nhật ký/bằng chứng module đặt ở `docs/members/minhh25-phase-2/` để QA tổng hợp. Không gắn tag phase-2 khi chưa kiểm toàn nhóm trên main.
+- Phase 3: đọc `docs/requirements/phase-3.txt`, `docs/plan/phase-3.md` và ADR-0001. Test Minh: `PYTHONPATH=tests:. python3 -m unittest discover -s tests -p test_gather_p3.py -v`.
+- Chuyển schema theo `docs/contracts/phase-3.md`: giữ active v1.1 trong lúc quan/scenario chuyển tiếp; ứng viên v1.2 ở `docs/contracts/game.contract.v1.2.json`. Không gắn tag hoặc tuyên bố DoD v1.2 trước kiểm hai đầu bàn giao trên bản tích hợp.

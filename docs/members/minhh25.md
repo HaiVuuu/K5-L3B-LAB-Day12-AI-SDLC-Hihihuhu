@@ -16,3 +16,12 @@ Bản nháp do Codex ghi theo công việc thực tế trong phiên; Minh cần 
 - Review: Codex tự rà theo Ticket 1.1/1.2/4; chưa ghi nhận người thật đã review. Phản tư cá nhân này cần Minh xác nhận.
 - Bằng chứng module riêng: `docs/members/minhh25-phase-2/` (để Hùng tổng hợp; không sửa vùng docs/proof/phase-2 độc quyền QA). Chưa xác nhận DoD toàn nhóm, day/Shop/pause/UI, tag hay deadline.
 - Kết quả thực chạy: 88/88 test toàn repo, 30/30 test Phase 2 của Minh; 4 replay P1 và smoke hai nguyên liệu mới đạt. Gather đủ 10.800 tick chạy 0,5051 s (không phải benchmark cả Ngày). Nhật ký chi tiết trong thư mục bằng chứng cá nhân.
+
+## Phase 3 — phần Minh
+
+- Đã triển khai trong commit `ae469d9`: adapter kho cá thể theo version, hold/ID I và remap mẫu ở Ngày sau, hao tươi chính xác 240 đơn vị/điểm, spoiled theo ID, lost cá thể LIFO và xuất file/JSONL đủ precision.
+- Giữ active v1.1 để main còn chạy trong lúc quan/day/scenario chuyển schema; chuẩn bị manifest v1.2 và test trong bản sao tạm. Điều chỉnh thứ tự bật version được giải thích ở ADR-0001 theo quyền chuyển tiếp của Ticket.
+- Không sửa module/file độc quyền của Hải/Hùng/Bảo. Hợp đồng API ở `docs/contracts/phase-3.md`; bằng chứng riêng ở `docs/members/minhh25-phase-3/` để QA tổng hợp.
+- AI: Codex thực hiện theo yêu cầu triển khai phần Minh sau khi PR Phase 2 đã merge. Không có số đo token/model/chi phí. Một điểm dễ sai được xử lý: làm tròn fresh về 3 chữ số sẽ khiến JSONL/file lệch và có thể đổi tick qua ngưỡng; đã tách precision fresh và thêm test đọc lại.
+- Chưa ghi nhận người thật review hoặc DoD toàn nhóm. Minh cần xác nhận phản tư; Hải/Hùng cần nối hai đầu, QA chạy bản v1.2 tích hợp trước khi bật manifest và tag.
+- Kết quả thực chạy: 122/122 test toàn repo, 30/30 test nhánh v1.2 phần Minh và 4/4 replay legacy đạt. Log/bằng chứng tick ngưỡng và file/event ở `docs/members/minhh25-phase-3/`.

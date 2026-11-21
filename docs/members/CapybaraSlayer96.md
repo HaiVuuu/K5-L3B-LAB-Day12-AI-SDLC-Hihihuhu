@@ -1,10 +1,11 @@
-# CapybaraSlayer96 — bản nháp chờ Bảo xác nhận
+# CapybaraSlayer96 — phản tư cá nhân (≤ 200 từ)
 
-Handle do Minh cung cấp ngày 2026-11-21. Phân công: client/ui, PO; Phase 4 có cảnh báo/tương phản cao và bench theo docs/plan/phase-4.md.
-
-- Phần đã thực hiện: Bảo cần tự xác nhận và thêm link commit/bằng chứng của mình. Chưa gán những commit UI Hùng làm thay cho Bảo.
-- Phần đã review/hỗ trợ: chưa có xác nhận của Bảo trong phiên này.
-- AI sai và cách phát hiện: chờ Bảo ghi trải nghiệm thật.
-- Điều học được: chờ Bảo tự điền.
-
-File này ghi tình trạng hồ sơ, không xác nhận Bảo đã có đủ ba commit, hoàn thành benchmark hoặc đã viết phản tư cá nhân.
+- Tôi đã làm (Phase 4):
+  - `0b19e4f`: ba cảnh báo có chữ, biểu tượng và chế độ tương phản cao (phím H).
+  - `63cdef9`: `chonoi/bench.py` đo FPS trong trình duyệt, 4 test.
+  - `d3ef384`: đồ họa chợ nổi.
+  - `6128669`, `921d8ac`: CL-10, nhật ký AI, [bằng chứng](CapybaraSlayer96-phase-4/README.md).
+  - Ngày 2026-11-21 tự chơi thử ba cảnh báo ở tương phản cao trên `921d8ac` (UI `d3ef384`): đều đúng. UI Phase 1–3 do Hùng làm thay.
+- Tôi đã review/hỗ trợ: review offline với Hùng tại lab (cặp dự phòng `client/ui` ↔ `qa`); chưa có bằng chứng trong repo.
+- AI sai ở đâu: Claude Code gộp oxy thấp và thủy quái vào một kịch bản chụp ảnh; ảnh ra lúc Út Sen đã ngất, cảnh báo đè màn kết thúc. Tôi xem ảnh thì phát hiện; AI ẩn cảnh báo khi hết buổi và tách kịch bản.
+- Điều tôi học được: giao việc rõ cho AI. Cho AI đọc plan và quyền sở hữu file trước thì nó chỉ sửa file của tôi, phần người khác thì báo lại.

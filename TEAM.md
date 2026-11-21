@@ -7,7 +7,7 @@
 | Nguyễn Đình Minh | | `sim/gather` | Integrator | `sim/quan` |
 | Nguyễn Đình Vũ Hải | | `sim/quan` | Scrum / Release | `sim/gather` |
 | Đoàn Xuân Duy Bảo | | `client/ui` | PO | `qa` |
-| Vũ Tiến Hùng | | `qa` | QA lead | `client/ui` |
+| Vũ Tiến Hùng | hungvueducation-hash | `qa` | QA lead | `client/ui` |
 
 **Vai quy trình:** PO (đầu mối hỏi giảng viên, giữ `docs/clarify.md`) · Integrator (giữ `docs/contracts/`, gắn tag) · QA lead · Scrum/Release. Có thể kiêm.
 

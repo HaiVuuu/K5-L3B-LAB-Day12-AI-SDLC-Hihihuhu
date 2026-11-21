@@ -1,0 +1,3 @@
+{"fixture_fresh": 30, "events": [{"type": "event", "tick": 1, "phase": "gather", "name": "spoiled", "data": {"item_id": "I1", "kind": "ca_linh", "location": "hold"}}], "snapshot_hold": [{"id": "I1", "kind": "ca_linh", "fresh": 29.991666666666667}]}
+{"fixture_fresh": 100, "events": [{"type": "event", "tick": 1, "phase": "gather", "name": "gather_end", "data": {"reason": "docked", "inventory": {"items": [{"id": "I1", "kind": "ca_linh", "fresh": 99.99166666666667}]}}}], "snapshot_hold": [{"id": "I1", "kind": "ca_linh", "fresh": 99.99166666666667}]}
+{"file_equals_event": true, "inventory": {"items": [{"id": "I1", "kind": "ca_linh", "fresh": 99.99166666666667}]}, "scope": "adapter readback; quan integration pending"}

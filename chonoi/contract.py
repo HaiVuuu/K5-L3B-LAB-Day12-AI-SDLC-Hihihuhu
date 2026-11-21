@@ -24,7 +24,13 @@ def load_contract(path=DEFAULT_PATH) -> dict:
             c = json.load(f)
     except (OSError, ValueError) as e:
         raise BadInput(f"không đọc được {path}: {e}")
+    if c.get("contract_version") not in ("1.0", "1.1", "1.2"):
+        raise BadInput("contract_version chưa hỗ trợ")
     validate_tuning(c.get("tuning"))
+    if c["contract_version"] == "1.2" and "freshness" not in c["tuning"]:
+        raise BadInput("contract v1.2 cần tuning.freshness")
+    # Metadata nội bộ cho sim: chưa bật độ tươi khi manifest vẫn ở v1.1 để chuyển tiếp.
+    c["tuning"]["_contract_version"] = c["contract_version"]
     return c
 
 
@@ -150,6 +156,14 @@ def validate_tuning(t):
             raise BadInput(f"menu.{dish_id}: price (nguyên) và cook_s phải > 0")
     if isinstance(g.get("fish_initial"), int):
         _validate_p2(t)
+    if "freshness" in t:
+        config = t["freshness"]
+        if not isinstance(config, dict) or set(config) != {"initial", "gather_decay_per_s", "quan_decay_per_s", "spoiled_below"}:
+            raise BadInput("tuning.freshness thiếu/sai khóa")
+        for key in ("initial", "spoiled_below"):
+            _between("freshness." + key, config[key], 0, 100)
+        for key in ("gather_decay_per_s", "quan_decay_per_s"):
+            _between("freshness." + key, config[key], 0, 100)
 
 
 def _validate_p2(t):

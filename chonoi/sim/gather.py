@@ -1,17 +1,17 @@
-"""Buổi sáng — Lặn & Hái (`gather`), lõi Phase 1–2.
+"""Buổi sáng — Lặn & Hái (`gather`), lõi Phase 1–3.
 
 Mặt cắt dòng sông nhìn NGANG: vị trí `[x, d]` (x sang phải, `d` độ sâu hướng xuống, d = 0 là mặt nước).
 `move = [x, d]`: thành phần thứ hai DƯƠNG = bơi xuống. Hướng mặt là góc từ +x, dương = xuống.
 
 Thứ tự: timer -> bơi/oxy/ngạt -> quái/hit -> bến/hái -> bắt -> hết giờ -> cá bơi/sinh.
 Giỏ giữ thứ tự nhặt (mới nhất ở cuối); không ghi file từ sim, runner xuất kho khi kết thúc.
-Luật/payload theo PRD-0 E–G và TICKET-02 1.1/1.2/4.5.
+Luật/payload theo PRD-0 E–G, TICKET-02 và kho/độ tươi TICKET-03.
 """
 
 import math
 
 from ..ids import sort_by_id
-from ..inventory import hold_to_items
+from ..inventory import FreshnessTracker, hold_to_items, inventory_version, validate_instances
 from .ramp import ramp_velocity
 from .monsters import Monsters
 
@@ -22,12 +22,15 @@ class GatherSim:
     mode = "gather"
     phase = "gather"
 
-    def __init__(self, tuning, scenario, streams, ids, *, day=1, active_upgrades=None):
+    def __init__(self, tuning, scenario, streams, ids, *, day=1, active_upgrades=None, contract_version=None):
         t = tuning["gather"]
         self.t = t
         self.tick_hz = tuning["tick_hz"]
         self.rng = streams
         self.ids = ids
+        self.inventory_version = inventory_version(contract_version or tuning.get("_contract_version", "1.1"))
+        self.individual_inventory = self.inventory_version == "1.2"
+        self._freshness = FreshnessTracker(tuning) if self.individual_inventory else None
         self.phase_tick = 0
         self.day = day
         self.active_upgrades = dict(active_upgrades or {})
@@ -53,6 +56,15 @@ class GatherSim:
         self.invuln_ticks = p.get("invuln_ticks", 0)
         self.catch_cd_ticks = p.get("catch_cd_ticks", 0)
         self.hold = list(scenario.get("hold", []))  # thứ tự nhặt, cuối mảng là mới nhất
+        if self.individual_inventory:
+            self.hold = validate_instances(self.hold)
+            if day > 1:
+                # DaySession truyền lại mẫu gốc; cấp mới theo thứ tự mảng ở Ngày sau.
+                for item in self.hold:
+                    item["id"] = ids.new("I")
+            else:
+                for item in self.hold:
+                    ids.reserve(item["id"])
         self.time_left_ticks = scenario.get("time_left_ticks", int(round(t["duration_s"] * self.tick_hz)))
         # nút và đàn cá: scenario THAY THẾ danh sách mặc định; random_fish=false tắt cá mặc định
         src_nodes = scenario["nodes"] if "nodes" in scenario else t["nodes"]
@@ -83,8 +95,8 @@ class GatherSim:
         self.reason = None
 
     # --- giao diện cho runner -------------------------------------------------
-    def inventory_items(self) -> dict:
-        return hold_to_items(self.hold)
+    def inventory_items(self):
+        return hold_to_items(self.hold, contract_version=self.inventory_version)
 
     def snapshot(self) -> dict:
         return {
@@ -93,7 +105,8 @@ class GatherSim:
                        "hp": self.hp, "hp_max": self.hp_max, "zero_oxy_ticks": self.zero_oxy_ticks,
                        "invuln_ticks": self.invuln_ticks, "catch_cd_ticks": self.catch_cd_ticks,
                        "at_surface": self._at_surface()},
-            "hold": self.hold, "hold_count": len(self.hold),
+            "hold": [dict(item) for item in self.hold] if self.individual_inventory else self.hold,
+            "hold_count": len(self.hold),
             "hold_capacity": self.t["hold_capacity"],
             "nodes": [{"id": n["id"], "pos": n["pos"], "kind": n["kind"],
                        "ready": n["regrow_ticks"] == 0, "regrow_ticks": n["regrow_ticks"]}
@@ -119,6 +132,9 @@ class GatherSim:
                 n["regrow_ticks"] -= 1
                 if n["regrow_ticks"] == 0:
                     events.append(("node_regrown", {"node_id": n["id"]}))
+        if self._freshness is not None:
+            events.extend(self._freshness.decay(self.hold, location="hold",
+                          rate=self._freshness.config["gather_decay_per_s"]))
         # 2. bơi + chặn mép
         was_at_surface = self._at_surface()
         self._move(inp)
@@ -252,7 +268,11 @@ class GatherSim:
         if qty > free:
             events.append(("hold_full", {"action": action, id_field: ident, "required": qty, "free": free}))
             return False
-        self.hold.extend([kind] * qty)
+        if self.individual_inventory:
+            self.hold.extend({"id": self.ids.new("I"), "kind": kind,
+                              "fresh": self._freshness.config["initial"]} for _ in range(qty))
+        else:
+            self.hold.extend([kind] * qty)
         return True
 
     def _at_surface(self) -> bool:

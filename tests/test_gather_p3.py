@@ -69,13 +69,13 @@ class P3Inventory(P3Base):
     def test_candidate_and_staged_config_differ_only_by_version(self):
         staged = load_contract()
         candidate = load_contract(str(CANDIDATE))
-        self.assertIn(staged["contract_version"], ("1.1", "1.2"))
+        self.assertIn(staged["contract_version"], ("1.1", "1.2", "1.3"))
         self.assertEqual(candidate["contract_version"], "1.2")
         self.assertEqual(candidate["tuning"]["freshness"], {
             "initial": 100, "gather_decay_per_s": 0.5, "quan_decay_per_s": 0.25, "spoiled_below": 30})
-        staged["contract_version"] = "1.2"
         staged["tuning"]["_contract_version"] = "1.2"
-        self.assertEqual(staged, candidate)
+        # Ticket-04 chỉ thêm lệnh đo/đổi launcher; gameplay tuning phải giữ nguyên v1.2.
+        self.assertEqual(staged["tuning"], candidate["tuning"])
 
     def test_strict_instances_reject_bad_shape_id_kind_or_freshness(self):
         invalid = [None, {}, {"ca_loc": 1}, ["ca_loc"], [item(), item()],

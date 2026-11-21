@@ -1,0 +1,8 @@
+{
+  "commit": "6c2969a4c7399acc77309e2ea1c810a896421787",
+  "contract_version": "1.3",
+  "archive": "chonoi-v1.0.0-candidate.zip",
+  "sha256": "a6aee1a13524a6ae696845293f041585a687a314512524430ef5283caac93669",
+  "bytes": 256100,
+  "status": "candidate; not a published release"
+}

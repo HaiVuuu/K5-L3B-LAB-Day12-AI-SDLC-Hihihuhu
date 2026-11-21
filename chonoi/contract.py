@@ -1,4 +1,4 @@
-"""Đọc/kiểm cấu hình Test Contract v1.0 và v1.1; không chứa luật gameplay."""
+"""Đọc/kiểm Test Contract v1.0–v1.3; v1.3 giữ gameplay/schema của v1.2."""
 
 import json
 import os
@@ -24,13 +24,19 @@ def load_contract(path=DEFAULT_PATH) -> dict:
             c = json.load(f)
     except (OSError, ValueError) as e:
         raise BadInput(f"không đọc được {path}: {e}")
-    if c.get("contract_version") not in ("1.0", "1.1", "1.2"):
+    if c.get("contract_version") not in ("1.0", "1.1", "1.2", "1.3"):
         raise BadInput("contract_version chưa hỗ trợ")
     validate_tuning(c.get("tuning"))
-    if c["contract_version"] == "1.2" and "freshness" not in c["tuning"]:
-        raise BadInput("contract v1.2 cần tuning.freshness")
-    # Metadata nội bộ cho sim: chưa bật độ tươi khi manifest vẫn ở v1.1 để chuyển tiếp.
-    c["tuning"]["_contract_version"] = c["contract_version"]
+    if c["contract_version"] in ("1.2", "1.3") and "freshness" not in c["tuning"]:
+        raise BadInput("contract v1.2/v1.3 cần tuning.freshness")
+    if c["contract_version"] == "1.3":
+        for key in ("bench_cmd", "soak_cmd"):
+            if not isinstance(c.get(key), str) or not c[key].strip():
+                raise BadInput(f"contract v1.3 cần {key} là lệnh khác rỗng")
+    # Ticket-04: chỉ thêm công cụ đo; các sim/scenario tiếp tục dùng chính schema v1.2.
+    c["tuning"]["_contract_version"] = "1.2" if c["contract_version"] == "1.3" else c["contract_version"]
+    # Quan/Day từ nhánh Hải dùng cờ này cho kho rỗng và adapter chuyển tiếp.
+    c["tuning"]["v12_enabled"] = c["contract_version"] in ("1.2", "1.3")
     return c
 
 

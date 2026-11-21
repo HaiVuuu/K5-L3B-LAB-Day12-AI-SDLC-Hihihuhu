@@ -1,0 +1,11 @@
+{
+  "source_commit": "6c2969a4c7399acc77309e2ea1c810a896421787",
+  "clone_kind": "local clean clone, not a remote clone",
+  "command_count": 3,
+  "initial_menu": true,
+  "dock_to_quan": true,
+  "stock_schema": "individual array",
+  "scope": "HTTP/runtime; contrast and visual warnings pending",
+  "zip_without_git_headless": true,
+  "zip_contains_mit_and_soak": true
+}

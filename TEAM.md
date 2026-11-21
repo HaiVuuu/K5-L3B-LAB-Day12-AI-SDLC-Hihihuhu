@@ -4,9 +4,9 @@
 
 | Thành viên | GitHub handle | Module chính | Vai quy trình | Người dự phòng cho |
 |---|---|---|---|---|
-| Nguyễn Đình Minh | | `sim/gather` | Integrator | `sim/quan` |
-| Nguyễn Đình Vũ Hải | HaiVuu | `sim/quan` | Scrum / Release | `sim/gather` |
-| Đoàn Xuân Duy Bảo | | `client/ui` | PO | `qa` |
+| Nguyễn Đình Minh | minhh25 | `sim/gather` | Integrator | `sim/quan` |
+| Nguyễn Đình Vũ Hải | HaiVuuu | `sim/quan` | Scrum / Release | `sim/gather` |
+| Đoàn Xuân Duy Bảo | CapybaraSlayer96 | `client/ui` | PO | `qa` |
 | Vũ Tiến Hùng | hungvueducation-hash | `qa` | QA lead | `client/ui` |
 
 **Vai quy trình:** PO (đầu mối hỏi giảng viên, giữ `docs/clarify.md`) · Integrator (giữ `docs/contracts/`, gắn tag) · QA lead · Scrum/Release. Có thể kiêm.

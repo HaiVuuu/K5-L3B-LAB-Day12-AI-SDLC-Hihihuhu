@@ -1,0 +1,4 @@
+$ /opt/homebrew/opt/python@3.13/bin/python3.13 tools/check_team.py
+OK: 4 thành viên: minhh25, HaiVuuu, CapybaraSlayer96, hungvueducation-hash
+
+exit_code=0

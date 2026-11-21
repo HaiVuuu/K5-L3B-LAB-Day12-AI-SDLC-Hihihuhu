@@ -10,6 +10,7 @@ from chonoi.runner import Session
 
 def v12_tuning():
     t = copy.deepcopy(load_contract("game.contract.json")["tuning"])
+    t["v12_enabled"] = True
     t["freshness"] = {
         "initial": 100,
         "gather_decay_per_s": 0.5,

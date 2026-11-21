@@ -120,7 +120,10 @@ class DaySession:
             plan = override[day_num]
         else:
             plans = self.base_tuning.get("day_plan", [])
-            plan = next((p for p in plans if p["day"] == day_num), {"day": day_num, "dishes": {}, "ingredients": {}})
+            wrapped = ((day_num - 1) % len(plans)) + 1 if plans else day_num
+            plan = next((p for p in plans if p["day"] == day_num), None)
+            if plan is None:
+                plan = next((p for p in plans if p["day"] == wrapped), {"day": day_num, "dishes": {}, "ingredients": {}})
         dishes = dict(plan.get("dishes", {}))
         if "ingredients" in plan:
             ingredients = dict(plan["ingredients"])
@@ -213,10 +216,9 @@ class DaySession:
         if self.sim.done:
             if cur_phase == "gather":
                 inv = self.sim.inventory_items()
-                if "freshness" in self.base_tuning and isinstance(inv, dict) and isinstance(inv.get("items"), list):
+                if isinstance(inv, dict) and isinstance(inv.get("items"), list):
                     inv = inv["items"]
-                elif "freshness" in self.base_tuning and isinstance(inv, dict):
-                    # Tương thích nếu GatherSim chưa nâng v1.2: chuyển count -> cá thể fresh 100
+                elif self.base_tuning.get("v12_enabled", False) and isinstance(inv, dict):
                     inv = [
                         {"id": self.item_ids.new("I"), "kind": k, "fresh": 100.0}
                         for k in sorted(inv) for _ in range(inv[k])

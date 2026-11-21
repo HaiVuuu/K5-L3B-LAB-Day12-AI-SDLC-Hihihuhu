@@ -25,8 +25,10 @@ Bật tương phản cao bằng phím **H** (lưu trong localStorage) hoặc th�
 | Cảnh báo | Điều kiện | Ảnh (tương phản cao) |
 |---|---|---|
 | Thủy quái gần / đang đuổi | Monster `chase`, hoặc khoảng cách ≤ `detect_radius` của loài (đọc từ contract) | [monster-hc.png](monster-hc.png), bình thường: [monster-normal.png](monster-normal.png) |
-| Oxy sắp hết / Hết hơi | Đang dưới nước và oxy < 25% (CL-07), hoặc oxy = 0 | [oxy-hc.png](oxy-hc.png) |
-| Khách sắp giận | Khách `waiting` có kiên nhẫn < 25% | [quan-hc.png](quan-hc.png) |
+| Oxy sắp hết / Hết hơi | Đang dưới nước và oxy < 25% (CL-07), hoặc oxy = 0 | [oxy-hc.png](oxy-hc.png), bình thường: [oxy-normal.png](oxy-normal.png) |
+| Khách sắp giận | Khách `waiting` có kiên nhẫn < 25% | [quan-hc.png](quan-hc.png), bình thường: [quan-normal.png](quan-normal.png) |
+
+Ảnh chụp theo đồ họa chợ nổi (commit `d3ef384`).
 
 Mỗi cảnh báo có chữ và biểu tượng tam giác "!" vẽ bằng canvas (không phụ thuộc font emoji). Ở chế độ tương phản cao, cảnh báo là khung vàng, chữ đen, viền trắng/đen dày. Viền đuổi đổi sang nét đứt trắng, nên vẫn nhận ra được mà không cần phân biệt màu.
 

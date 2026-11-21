@@ -1,0 +1,15 @@
+test_base_price_theo_do_tuoi (test_smoke_p3.ChoSimV12.test_base_price_theo_do_tuoi) ... skipped 'Chờ sim/quan v1.2 + công thức làm tròn: base_price = floor(giá × avg_fresh / 100), boa floor(base_price × 0.2)'
+test_giu_lai_khi_hang_giu_bi_uon (test_smoke_p3.ChoSimV12.test_giu_lai_khi_hang_giu_bi_uon) ... skipped 'Chờ sim/quan v1.2: nhả & thử giữ lại đúng 1 lần khi cá thể giữ bị ươn; thiếu thì unfulfillable'
+test_file_kho_ca_the_hop_le_exit_0 (test_smoke_p3.KhoSai.test_file_kho_ca_the_hop_le_exit_0) ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+test_file_kho_sai_exit_2 (test_smoke_p3.KhoSai.test_file_kho_sai_exit_2) ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+test_scenario_kho_dem_cu_exit_2 (test_smoke_p3.KhoSai.test_scenario_kho_dem_cu_exit_2) ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+test_ban_giao_cung_tick_khong_hao_them (test_smoke_p3.Spoilage.test_ban_giao_cung_tick_khong_hao_them)
+Cập bến tick 0: kho ghi ra và quán đọc lại cùng id/kind; quán tick 0 chưa hao thêm so với kho. ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+test_hang_tuoi_khong_phat_spoiled (test_smoke_p3.Spoilage.test_hang_tuoi_khong_phat_spoiled) ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+test_nguong_30_phat_spoiled_o_tick_1 (test_smoke_p3.Spoilage.test_nguong_30_phat_spoiled_o_tick_1)
+Giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` (location hold) ở tick 1. ... skipped 'game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+OK (skipped=8)

@@ -1,6 +1,10 @@
 """Nạp và kiểm scenario (Contract D). Trả về dict của đúng khối theo mode.
 
 KHUNG: kiểm cú pháp, id trùng, bộ đếm âm, khoang vượt sức chứa, trường lạ.
+
+QA (Phase 2-3): loại nguyên liệu / nút / cá lấy từ contract (không cứng 4 loại của v1.0), kiểm `monsters`,
+và khi contract có `freshness` (v1.2) thì giỏ/kho/giữ chỗ là MẢNG CÁ THỂ {id, kind, fresh}: id duy nhất,
+fresh trong [0, 100], giữ chỗ chỉ trỏ tới id có trong kho, không trỏ hàng ươn, không trùng giữa các đơn.
 TODO(nhóm): bổ sung kiểm mâu thuẫn mức luật mà nhóm cần (khách giữ chỗ quá kho, đơn assigned
 phải có đúng một món, khách eating thiếu giá/tip...) — xem PRD-0 mục D và 'Mâu thuẫn -> mã 2'.
 """
@@ -8,16 +12,61 @@ phải có đúng một món, khách eating thiếu giá/tip...) — xem PRD-0 m
 import json
 
 from .errors import BadInput
-from .inventory import KINDS_P1, validate_items
+from .inventory import validate_items
 
-GATHER_KEYS = {"player", "hold", "nodes", "fish", "random_fish", "time_left_ticks"}
+GATHER_KEYS = {"player", "hold", "nodes", "fish", "random_fish", "time_left_ticks", "monsters"}
 GATHER_PLAYER_KEYS = {"pos", "vel", "heading_deg", "hp", "oxygen_ticks", "zero_oxy_ticks",
                       "invuln_ticks", "catch_cd_ticks"}
-NODE_KINDS = ("bong_dien_dien", "bong_sung")
-FISH_KINDS = ("ca_linh", "ca_loc")
+MONSTER_STATES = ("patrol", "chase", "recoil")
 QUAN_PLAYER_KEYS = {"pos", "vel"}
 QUAN_KEYS = {"player", "stock", "hand", "stoves", "tables", "customers", "random_customers",
              "reputation", "time_left_ticks"}
+
+
+def node_kinds(tuning):
+    return tuple(sorted({n["kind"] for n in tuning["gather"]["nodes"]}))
+
+
+def fish_kinds(tuning):
+    return tuple(sorted(tuning["gather"]["fish_yield"]))
+
+
+def ingredient_kinds(tuning):
+    """Mọi loại nguyên liệu hợp lệ: vật liệu trong công thức + loại nút + loại cá (v1.0: 4 loại, v1.1: 6 loại)."""
+    kinds = set(node_kinds(tuning)) | set(fish_kinds(tuning))
+    for dish in tuning["menu"].values():
+        kinds |= set(dish["recipe"])
+    return tuple(sorted(kinds))
+
+
+def _is_v12(tuning):
+    return "freshness" in tuning
+
+
+def _spoiled_below(tuning):
+    return tuning["freshness"].get("spoiled_below", 30)
+
+
+def _check_items(name, arr, tuning, capacity=None, seen_ids=None):
+    """Mảng cá thể v1.2: [{id, kind, fresh}], id duy nhất (kể cả giữa các mảng nếu truyền seen_ids)."""
+    if not isinstance(arr, list):
+        raise BadInput(f"{name} phải là mảng cá thể {{id, kind, fresh}} (contract {tuning.get('contract_version', '1.2')}, không dùng bộ đếm)")
+    if capacity is not None and len(arr) > capacity:
+        raise BadInput(f"{name} vượt sức chứa")
+    kinds = ingredient_kinds(tuning)
+    seen = seen_ids if seen_ids is not None else set()
+    for it in arr:
+        if not isinstance(it, dict) or set(it) != {"id", "kind", "fresh"}:
+            raise BadInput(f"{name}: mỗi cá thể phải có đúng id, kind, fresh")
+        if not isinstance(it["id"], str) or not it["id"]:
+            raise BadInput(f"{name}: id cá thể phải là chuỗi khác rỗng")
+        if it["id"] in seen:
+            raise BadInput(f"{name}: id cá thể trùng {it['id']}")
+        seen.add(it["id"])
+        if it["kind"] not in kinds:
+            raise BadInput(f"{name}.{it['id']}: nguyên liệu lạ {it['kind']!r}")
+        if not _num(it["fresh"]) or not (0 <= it["fresh"] <= 100):
+            raise BadInput(f"{name}.{it['id']}: fresh phải là số trong [0, 100]")
 
 
 def _check_ids(name, arr):
@@ -91,10 +140,15 @@ def _validate_gather(b, tuning):
         raise BadInput("random_fish phải là boolean")
     if "hold" in b:
         h = b["hold"]
-        if not isinstance(h, list) or any(k not in KINDS_P1 for k in h):
-            raise BadInput("hold phải là mảng id nguyên liệu hợp lệ")
-        if len(h) > g["hold_capacity"]:
-            raise BadInput("hold vượt sức chứa")
+        if _is_v12(tuning):
+            _check_items("hold", h, tuning, capacity=g["hold_capacity"])
+        else:
+            if not isinstance(h, list) or any(k not in ingredient_kinds(tuning) for k in h):
+                raise BadInput("hold phải là mảng id nguyên liệu hợp lệ")
+            if len(h) > g["hold_capacity"]:
+                raise BadInput("hold vượt sức chứa")
+    if "monsters" in b:
+        _validate_monsters(b["monsters"], tuning)
     p = b.get("player", {})
     if not isinstance(p, dict):
         raise BadInput("player phải là object")
@@ -122,17 +176,18 @@ def _validate_gather(b, tuning):
             raise BadInput("player.zero_oxy_ticks phải trong [0, 59]")
         if p["zero_oxy_ticks"] > 0 and not (oxy == 0 and pos[1] > g["surface_depth"]):
             raise BadInput("player.zero_oxy_ticks > 0 chỉ khi oxy = 0 và đang dưới nước")
+    nkinds, fkinds = node_kinds(tuning), fish_kinds(tuning)
     for n in b.get("nodes", []):
-        if n.get("kind") not in NODE_KINDS:
-            raise BadInput(f"nodes.{n['id']}: kind phải là một trong {NODE_KINDS}")
+        if n.get("kind") not in nkinds:
+            raise BadInput(f"nodes.{n['id']}: kind phải là một trong {nkinds}")
         _pos(f"nodes.{n['id']}.pos", n.get("pos"), bounds)
         if n["pos"][1] != 0:
             raise BadInput(f"nodes.{n['id']}: nút hái nằm ở mặt nước (d = 0)")
         if "regrow_ticks" in n:
             _nonneg_int(f"nodes.{n['id']}.regrow_ticks", n["regrow_ticks"])
     for f in b.get("fish", []):
-        if f.get("kind") not in FISH_KINDS:
-            raise BadInput(f"fish.{f['id']}: kind phải là một trong {FISH_KINDS}")
+        if f.get("kind") not in fkinds:
+            raise BadInput(f"fish.{f['id']}: kind phải là một trong {fkinds}")
         _pos(f"fish.{f['id']}.pos", f.get("pos"), bounds)
         if f["pos"][1] <= g["surface_depth"]:
             raise BadInput(f"fish.{f['id']}: đàn cá phải ở dưới nước")
@@ -140,12 +195,62 @@ def _validate_gather(b, tuning):
             raise BadInput(f"fish.{f['id']}.heading_deg phải là số")
 
 
+def _validate_monsters(arr, tuning):
+    mcfg = tuning["gather"].get("monsters")
+    if not mcfg:
+        raise BadInput("contract này chưa có monsters (cần v1.1 trở lên)")
+    _check_ids("monsters", arr)
+    bounds = tuning["gather"]["bounds"]
+    species = mcfg["species"]
+    for m in arr:
+        if m.get("kind") not in species:
+            raise BadInput(f"monsters.{m['id']}: kind phải là một trong {tuple(sorted(species))}")
+        _pos(f"monsters.{m['id']}.pos", m.get("pos"), bounds)
+        lo, hi = species[m["kind"]]["depths"]
+        if not (lo <= m["pos"][1] <= hi):
+            raise BadInput(f"monsters.{m['id']}: d phải trong dải độ sâu của loài [{lo}, {hi}]")
+        if "state" in m and m["state"] not in MONSTER_STATES:
+            raise BadInput(f"monsters.{m['id']}.state phải là một trong {MONSTER_STATES}")
+        if "waypoints" in m:
+            wp = m["waypoints"]
+            if not isinstance(wp, list) or len(wp) < 1:
+                raise BadInput(f"monsters.{m['id']}.waypoints phải là mảng điểm không rỗng")
+            for i, w in enumerate(wp):
+                _pos(f"monsters.{m['id']}.waypoints[{i}]", w, bounds)
+
+
+def _validate_reserved(b, tuning):
+    """v1.2: customers[].reserved là mảng id cá thể trong stock; không ươn, không trùng giữa các đơn."""
+    stock = {it["id"]: it for it in b.get("stock", []) if isinstance(it, dict)}
+    below = _spoiled_below(tuning)
+    taken = {}
+    for c in b.get("customers", []):
+        if "reserved" not in c:
+            continue
+        r = c["reserved"]
+        if not isinstance(r, list) or any(not isinstance(x, str) for x in r):
+            raise BadInput(f"customers.{c['id']}.reserved phải là mảng id cá thể (v1.2)")
+        if len(r) != len(set(r)):
+            raise BadInput(f"customers.{c['id']}.reserved có id trùng")
+        for x in r:
+            if x not in stock:
+                raise BadInput(f"customers.{c['id']}: giữ chỗ id không có trong stock: {x}")
+            if stock[x]["fresh"] < below:
+                raise BadInput(f"customers.{c['id']}: giữ chỗ hàng ươn {x} (fresh < {below})")
+            if x in taken:
+                raise BadInput(f"id {x} bị giữ chỗ bởi cả {taken[x]} và {c['id']}")
+            taken[x] = c["id"]
+
+
 def _validate_quan(b, tuning):
     for arr in ("stoves", "tables", "customers"):
         if arr in b:
             _check_ids(arr, b[arr])
     if "stock" in b:
-        validate_items(b["stock"])
+        if _is_v12(tuning):
+            _check_items("stock", b["stock"], tuning)
+        else:
+            validate_items(b["stock"], ingredient_kinds(tuning))
     p = b.get("player", {})
     if not isinstance(p, dict) or set(p) - QUAN_PLAYER_KEYS:
         raise BadInput("quan.player chỉ có pos và vel")
@@ -161,3 +266,5 @@ def _validate_quan(b, tuning):
             raise BadInput(f"customers.{c['id']}: table_id phải là bàn có thật")
     if len(table_ids) != len(set(table_ids)):
         raise BadInput("hai khách cùng bàn")
+    if _is_v12(tuning):
+        _validate_reserved(b, tuning)

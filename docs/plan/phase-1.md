@@ -9,3 +9,11 @@
 - Rủi ro:
   - Xung đột khi gộp vào `main`: Giảm thiểu bằng phân quyền sở hữu file rạch ròi, không sửa chéo file test, không sửa `game.contract.json` khi chưa báo Integrator.
   - Thiếu GitHub handle trong `TEAM.md`: Cần điền đầy đủ trước khi nộp/chạy `tools/check_team.py` (mỗi thành viên ≥ 3 commit bằng tài khoản GitHub của mình).
+
+## Cập nhật phần Minh — 2026-11-21
+
+- [x] Lát 1–2 gather theo PRD-0 E–G; 23 test luật và kiểm headless/kho.
+- [x] Ghi hợp đồng tích hợp hiện hành, hai command nhóm, nhật ký AI và bằng chứng tại `docs/proof/phase-1/minh/`.
+- [x] Xác minh GitHub `minhh25` khớp tên/email Git đang cấu hình; điền dòng Minh trong TEAM.md.
+- [ ] Hải đọc chéo gather; QA/UI xác nhận tích hợp đầy đủ trên main.
+- [ ] Hoàn thiện DoD toàn nhóm và gắn/push tag `phase-1` trên main. Không tag bản còn TODO luật quán chỉ vì smoke xanh.

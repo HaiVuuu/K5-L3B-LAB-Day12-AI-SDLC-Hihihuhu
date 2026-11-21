@@ -1,0 +1,7 @@
+$ /opt/homebrew/opt/python@3.13/bin/python3.13 tools/check_gather_replay.py
+{"case": "harvest_on_last_tick", "result": "PASS", "reason": "time", "events": ["gather", "gather_end"], "inventory": {"items": {"bong_sung": 1}}, "quan_stock": {"bong_sung": 1}, "jsonl_sha256": "f628a6d7bebbe2905cdee1f7d60417e675144873a44b427665ffb4876a5b3f7b", "inventory_sha256": "c7261859b0901939b3c5caddfe4b2785d3306fcc28caf5961894f93c0a4a2df7"}
+{"case": "catch_on_last_tick", "result": "PASS", "reason": "time", "events": ["fish_caught", "gather_end"], "inventory": {"items": {"bong_sung": 1, "ca_linh": 3}}, "quan_stock": {"bong_sung": 1, "ca_linh": 3}, "jsonl_sha256": "b68cdfe59238fe7121e1ea4a655d453088013b539a2812a316bd5050f133472b", "inventory_sha256": "32aa4f3815bc7d2882a63f749a053da00ae00ebf5ee216bef684452460a9ab67"}
+{"case": "faint_lifo", "result": "PASS", "reason": "fainted", "events": ["choke", "faint", "gather_end"], "inventory": {"items": {}}, "quan_stock": {}, "jsonl_sha256": "4b9a4f2fd4a4d92b302dc6019d327a6082365f7d5b912640969a4fc9f035ec4a", "inventory_sha256": "599e112e7a4c3a048f918b031713b47de4ed62e3aa6fa3299099b3566144fcd5"}
+{"case": "prd_dock_smoke", "result": "PASS", "reason": "docked", "events": ["gather_end"], "inventory": {"items": {"bong_sung": 2, "ca_loc": 1}}, "quan_stock": {"bong_sung": 2, "ca_loc": 1}, "jsonl_sha256": "6bc3a907bb1c941be656463f91009d0644398b32057bef98ba04103b2eaed8f9", "inventory_sha256": "b6bb9d2da81ecee69d01fd0860cef1b54edfcb140409c250b4ec3ba1e4410b65"}
+
+exit_code=0

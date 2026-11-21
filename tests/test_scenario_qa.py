@@ -1,7 +1,8 @@
 """QA — kiểm scenario (Contract D) theo contract v1.1 (6 nguyên liệu, monsters) và v1.2 (kho cá thể, độ tươi).
 
 Kiểm trực tiếp `load_scenario` (nhanh) + vài ca chạy headless thật. Ca v1.2 chèn `freshness` vào tuning vì
-`game.contract.json` hiện tại có thể chưa lên 1.2 — khi lên 1.2 thật, các ca này vẫn đúng.
+`game.contract.json` hiện tại có thể chưa lên 1.2 — khi lên 1.2 thật, các ca này vẫn đúng. Nhận biết v1.2 bằng
+`_contract_version`, không bằng sự có mặt của `freshness` (manifest chuyển tiếp có freshness nhưng vẫn là 1.1).
 """
 
 import copy
@@ -21,6 +22,7 @@ def tuning(v12=False):
     t = copy.deepcopy(load_contract()["tuning"])
     if v12:
         t["freshness"] = {"initial": 100, "gather_decay_per_s": 0.5, "quan_decay_per_s": 0.25, "spoiled_below": 30}
+        t["_contract_version"] = "1.2"  # load_contract gắn khi manifest là 1.2
     return t
 
 
@@ -143,6 +145,27 @@ class KhoCaThe(unittest.TestCase):
         load("quan", {"stock": [it("I1", fresh=30)], "customers": [c]}, t)
         with self.assertRaises(BadInput):
             load("quan", {"stock": [it("I1", fresh=29.99)], "customers": [c]}, t)
+
+    def test_giu_cho_phai_du_cong_thuc(self):
+        t = tuning(v12=True)
+        stock = [it("I1"), it("I2", "bong_sung", 90), it("I3", "bong_sung", 90)]
+        cust = lambda dish, res: {"id": "C1", "table_id": "T1", "dish_id": dish, "reserved": res}
+        load("quan", {"stock": stock, "customers": [cust("goi_bong_sung", ["I2", "I3"])]}, t)   # bông súng ×2: đúng
+        for dish, res in (("goi_bong_sung", ["I2"]),            # thiếu 1 bông súng
+                          ("goi_bong_sung", ["I1", "I2"]),      # sai loại
+                          ("ca_loc_nuong_trui", ["I1", "I2"])):  # dư
+            with self.assertRaises(BadInput, msg=(dish, res)):
+                load("quan", {"stock": stock, "customers": [cust(dish, res)]}, t)
+
+    def test_co_freshness_nhung_manifest_van_v11_thi_dung_bo_dem(self):
+        """Manifest chuyển tiếp: có `freshness` nhưng contract_version vẫn 1.1 -> chưa bật kho cá thể."""
+        t = tuning(v12=False)
+        t["freshness"] = {"initial": 100, "gather_decay_per_s": 0.5, "quan_decay_per_s": 0.25, "spoiled_below": 30}
+        t["_contract_version"] = "1.1"
+        load("quan", {"stock": {"ca_loc": 1}}, t)
+        load("gather", {"hold": ["ca_loc"]}, t)
+        with self.assertRaises(BadInput):
+            load("quan", {"stock": [it("I1")]}, t)
 
     def test_v11_van_dung_bo_dem_cu(self):
         t = tuning(v12=False)

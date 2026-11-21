@@ -3,8 +3,10 @@
 KHUNG: kiểm cú pháp, id trùng, bộ đếm âm, khoang vượt sức chứa, trường lạ.
 
 QA (Phase 2-3): loại nguyên liệu / nút / cá lấy từ contract (không cứng 4 loại của v1.0), kiểm `monsters`,
-và khi contract có `freshness` (v1.2) thì giỏ/kho/giữ chỗ là MẢNG CÁ THỂ {id, kind, fresh}: id duy nhất,
-fresh trong [0, 100], giữ chỗ chỉ trỏ tới id có trong kho, không trỏ hàng ươn, không trùng giữa các đơn.
+và khi contract ĐANG CHẠY v1.2 (`tuning._contract_version == "1.2"`, do load_contract gắn; KHÔNG suy từ việc
+có khối `freshness`, vì manifest có thể chứa freshness mà vẫn ở v1.1 trong lúc chuyển tiếp) thì giỏ/kho/giữ chỗ là
+MẢNG CÁ THỂ {id, kind, fresh}: id duy nhất, fresh trong [0, 100], giữ chỗ chỉ trỏ tới id có trong kho, chưa ươn,
+không trùng giữa các đơn và đủ công thức của món.
 TODO(nhóm): bổ sung kiểm mâu thuẫn mức luật mà nhóm cần (khách giữ chỗ quá kho, đơn assigned
 phải có đúng một món, khách eating thiếu giá/tip...) — xem PRD-0 mục D và 'Mâu thuẫn -> mã 2'.
 """
@@ -40,7 +42,7 @@ def ingredient_kinds(tuning):
 
 
 def _is_v12(tuning):
-    return "freshness" in tuning
+    return tuning.get("_contract_version") == "1.2" and "freshness" in tuning
 
 
 def _spoiled_below(tuning):
@@ -240,6 +242,14 @@ def _validate_reserved(b, tuning):
             if x in taken:
                 raise BadInput(f"id {x} bị giữ chỗ bởi cả {taken[x]} và {c['id']}")
             taken[x] = c["id"]
+        dish = tuning["menu"].get(c.get("dish_id"))
+        if dish is not None and r:  # "đủ công thức": số lượng từng loại đúng bằng công thức của món
+            need = dict(dish["recipe"])
+            got = {}
+            for x in r:
+                got[stock[x]["kind"]] = got.get(stock[x]["kind"], 0) + 1
+            if got != need:
+                raise BadInput(f"customers.{c['id']}: reserved không khớp công thức {c['dish_id']}: {got} != {need}")
 
 
 def _validate_quan(b, tuning):

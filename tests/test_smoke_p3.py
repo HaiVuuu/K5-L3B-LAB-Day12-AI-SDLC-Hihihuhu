@@ -1,9 +1,10 @@
 """Smoke Phase 3 (QA, hộp đen): kho cá thể {id, kind, fresh} và độ tươi — Test Contract v1.2 (docs/plan/phase-3.md).
 
-Chỉ chạy khi `game.contract.json` có khối `freshness` (v1.2); trước đó tự bỏ qua với lý do rõ ràng.
-Chỉ khẳng định những điều plan nêu thẳng (ngưỡng `fresh < 30` là ươn, `spoiled` phát ở tick 1 khi đi từ >=30
-xuống <30, schema file kho, mã thoát 2). Các điều còn mơ hồ (base_price, giữ lại khi ươn) KHÔNG đoán ở đây —
-xem docs/verification/phase-3.md.
+Chỉ chạy khi `game.contract.json` có `contract_version: "1.2"` (manifest chuyển tiếp có `freshness` nhưng vẫn
+"1.1" thì chưa bật); trước đó tự bỏ qua với lý do rõ ràng. Chỉ khẳng định những điều Ticket-03 nêu thẳng
+(ngưỡng `fresh < 30` là ươn, `spoiled` {item_id, kind, location} ở tick 1, schema file kho, mã thoát 2, bàn giao
+file khớp snapshot quán). Điều còn mơ hồ (base_price, giữ lại khi ươn) KHÔNG đoán ở đây — xem
+docs/verification/phase-3.md.
 
 Chạy: python -m unittest discover -s tests -p test_smoke_p3.py -v
 """
@@ -20,8 +21,8 @@ def contract():
         return json.load(f)
 
 
-HAS_V12 = "freshness" in contract()["tuning"]
-SKIP = unittest.skipUnless(HAS_V12, "game.contract.json chưa có `freshness` (chưa lên v1.2) — chờ Integrator")
+HAS_V12 = contract().get("contract_version") == "1.2"
+SKIP = unittest.skipUnless(HAS_V12, "game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2")
 
 
 def it(i, kind="ca_loc", fresh=100):
@@ -31,19 +32,18 @@ def it(i, kind="ca_loc", fresh=100):
 @SKIP
 class Spoilage(unittest.TestCase):
     def test_nguong_30_phat_spoiled_o_tick_1(self):
-        """Giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` (location hold) ở tick 1."""
+        """Ticket-03: giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` ở tick 1."""
         with Workdir() as w:
-            sc = write_json(w.path("sc.json"), {"gather": {"hold": [it("I1", fresh=30), it("I2", "bong_sung", 100)],
-                                                           "random_fish": False, "player": {"pos": [50, 10]}}})
+            sc = write_json(w.path("sc.json"), {"gather": {"hold": [it("I1", "ca_linh", 30), it("I2", "bong_sung", 100)],
+                                                           "random_fish": False, "monsters": [],
+                                                           "player": {"pos": [50, 10]}}})
             code, err = run_headless("--mode", "gather", "--seed", "1", "--ticks", "3", "--scenario", sc,
                                      "--out", w.path("o.jsonl"))
             self.assertEqual(code, 0, err)
             sp = events(read_jsonl(w.path("o.jsonl")), "spoiled")
             self.assertEqual(len(sp), 1, sp)
             self.assertEqual(sp[0]["tick"], 1)
-            self.assertEqual(sp[0]["data"]["location"], "hold")
-            self.assertIn("I1", json.dumps(sp[0]["data"]))
-            self.assertNotIn("I2", json.dumps(sp[0]["data"]))
+            self.assertEqual(sp[0]["data"], {"item_id": "I1", "kind": "ca_linh", "location": "hold"})
 
     def test_hang_tuoi_khong_phat_spoiled(self):
         with Workdir() as w:
@@ -75,6 +75,9 @@ class Spoilage(unittest.TestCase):
             stock = snapshots(read_jsonl(w.path("q.jsonl")))[0]["stock"]
             self.assertEqual(sorted((x["id"], x["kind"], x["fresh"]) for x in stock),
                              sorted((x["id"], x["kind"], x["fresh"]) for x in saved["items"]))
+            by_id = {x["id"]: x["fresh"] for x in saved["items"]}  # hao đầu bước gather: 0.5 điểm/s = 0.5/60 mỗi tick
+            self.assertAlmostEqual(by_id["I1"], 80 - 0.5 / 60, delta=0.01)
+            self.assertAlmostEqual(by_id["I2"], 64.5 - 0.5 / 60, delta=0.01)
 
 
 @SKIP

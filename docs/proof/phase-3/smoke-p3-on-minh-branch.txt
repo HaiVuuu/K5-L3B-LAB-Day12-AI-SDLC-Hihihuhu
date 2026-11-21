@@ -1,0 +1,54 @@
+test_base_price_theo_do_tuoi (test_smoke_p3.ChoSimV12.test_base_price_theo_do_tuoi) ... skipped 'Chờ sim/quan v1.2 + công thức làm tròn: base_price = floor(giá × avg_fresh / 100), boa floor(base_price × 0.2)'
+test_giu_lai_khi_hang_giu_bi_uon (test_smoke_p3.ChoSimV12.test_giu_lai_khi_hang_giu_bi_uon) ... skipped 'Chờ sim/quan v1.2: nhả & thử giữ lại đúng 1 lần khi cá thể giữ bị ươn; thiếu thì unfulfillable'
+test_file_kho_ca_the_hop_le_exit_0 (test_smoke_p3.KhoSai.test_file_kho_ca_the_hop_le_exit_0) ... FAIL
+test_file_kho_sai_exit_2 (test_smoke_p3.KhoSai.test_file_kho_sai_exit_2) ... ok
+test_scenario_kho_dem_cu_exit_2 (test_smoke_p3.KhoSai.test_scenario_kho_dem_cu_exit_2) ... ok
+test_ban_giao_cung_tick_khong_hao_them (test_smoke_p3.Spoilage.test_ban_giao_cung_tick_khong_hao_them)
+Cập bến tick 0: kho ghi ra và quán đọc lại cùng id/kind; quán tick 0 chưa hao thêm so với kho. ... FAIL
+test_hang_tuoi_khong_phat_spoiled (test_smoke_p3.Spoilage.test_hang_tuoi_khong_phat_spoiled) ... ok
+test_nguong_30_phat_spoiled_o_tick_1 (test_smoke_p3.Spoilage.test_nguong_30_phat_spoiled_o_tick_1)
+Ticket-03: giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` ở tick 1. ... ok
+
+======================================================================
+FAIL: test_file_kho_ca_the_hop_le_exit_0 (test_smoke_p3.KhoSai.test_file_kho_ca_the_hop_le_exit_0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\tests\test_smoke_p3.py", line 101, in test_file_kho_ca_the_hop_le_exit_0
+    self.assertEqual(self._quan_exit(w, {"items": [it("I1"), it("I2", "ca_keo", 0)]}), 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_ban_giao_cung_tick_khong_hao_them (test_smoke_p3.Spoilage.test_ban_giao_cung_tick_khong_hao_them)
+Cập bến tick 0: kho ghi ra và quán đọc lại cùng id/kind; quán tick 0 chưa hao thêm so với kho.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\tests\test_smoke_p3.py", line 74, in test_ban_giao_cung_tick_khong_hao_them
+    self.assertEqual(code, 0, err)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\headless.py", line 94, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\headless.py", line 82, in main
+    run(a.mode, tuning, scenario, a.seed, frames, a.ticks, a.out, a.snapshot_every,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inventory=inventory, inventory_out=a.inventory_out, days=days, buttons=buttons)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\runner.py", line 121, in run
+    sess = Session(mode, tuning, scenario, seed, inventory, days=days)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\runner.py", line 47, in __init__
+    self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\runner.py", line 28, in build_sim
+    return QuanSim(tuning, scenario, streams, ids, inventory=inventory)
+  File "C:\Users\ADMIN\AppData\Local\Temp\p3check\chonoi\sim\quan.py", line 36, in __init__
+    self.stock = dict(inventory if inventory is not None else scenario.get("stock", {}))
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: dictionary update sequence element #0 has length 3; 2 is required
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 14.429s
+
+FAILED (failures=2, skipped=2)

@@ -8,7 +8,7 @@ import unittest
 from chonoi.contract import load_contract, validate_tuning
 from chonoi.errors import BadInput
 from chonoi.ids import IdAllocator
-from chonoi.inputs import InputPlayer, InputState, LiveInputs, load_frames
+from chonoi.inputs import BUTTONS_V11, InputPlayer, InputState, LiveInputs, load_frames
 from chonoi.inventory import KINDS_P2, read_inventory, validate_items, write_inventory
 from chonoi.rng import Streams
 from chonoi.sim.gather import GatherSim
@@ -93,6 +93,15 @@ class P2ManifestAndInputs(P2Base):
             player.advance(2)
             self.assertTrue(player.advance(3).pressed("pause"))
             self.assertIsNone(player.advance(4).buy)
+
+    def test_load_frames_supports_cli_allow_buy_keyword_and_explicit_disable(self):
+        with Workdir() as work:
+            path = write_json(work.path("inputs.json"), frames({"tick": 0, "buy": "oxygen"}))
+            loaded = load_frames(path, buttons=BUTTONS_V11, allow_buy=True)
+            self.assertEqual(InputPlayer(loaded).advance(0).buy, "oxygen")
+            self.assertEqual(load_frames(path)[0]["buy"], "oxygen")
+            with self.assertRaises(BadInput):
+                load_frames(path, buttons=BUTTONS_V11, allow_buy=False)
 
     def test_input_rejects_wrong_types_and_accepts_disabled_extension_buttons(self):
         with Workdir() as work:

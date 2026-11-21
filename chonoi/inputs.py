@@ -25,7 +25,7 @@ class InputState:
         return name in self._edges
 
 
-def load_frames(path, buttons=BUTTONS_V11):
+def load_frames(path, buttons=BUTTONS_V11, allow_buy=None):
     if path is None:
         return []
     try:
@@ -38,7 +38,9 @@ def load_frames(path, buttons=BUTTONS_V11):
     last = -1
     frames = []
     allowed = {"tick", "move", *buttons}
-    if "shop_done" in buttons:
+    if allow_buy is None:
+        allow_buy = "shop_done" in buttons
+    if allow_buy:
         allowed.add("buy")
     for i, fr in enumerate(data["frames"]):
         if not isinstance(fr, dict):
@@ -61,8 +63,9 @@ def load_frames(path, buttons=BUTTONS_V11):
         for b in buttons:
             if b in fr and not isinstance(fr[b], bool):
                 raise BadInput(f"frame {i}: {b} phải là boolean")
-        if "buy" in fr and (not isinstance(fr["buy"], str) or not fr["buy"]):
-            raise BadInput(f"frame {i}: buy phải là chuỗi khác rỗng")
+        if allow_buy and "buy" in fr:
+            if not isinstance(fr["buy"], str) or not fr["buy"]:
+                raise BadInput(f"frame {i}: buy phải là chuỗi khác rỗng")
         frames.append(fr)
     return frames
 
@@ -85,6 +88,7 @@ class InputPlayer:
     def advance(self, k: int) -> InputState:
         """Đọc input có tick == k. Trả trạng thái dùng cho bước k."""
         edges = set()
+        buy = None
         fr = self._frames.get(k)
         if fr:
             if "move" in fr:
@@ -94,7 +98,8 @@ class InputPlayer:
                     if fr[b] and not self._held[b]:
                         edges.add(b)
                     self._held[b] = fr[b]
-        return InputState(self._move, dict(self._held), edges, buy=fr.get("buy") if fr else None)
+            buy = fr.get("buy")
+        return InputState(self._move, dict(self._held), edges, buy=buy)
 
 
 class LiveInputs:

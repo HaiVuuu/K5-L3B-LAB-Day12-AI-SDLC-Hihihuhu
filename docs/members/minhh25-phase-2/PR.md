@@ -13,14 +13,14 @@ Phase 2 · Minh (sim/gather + Integrator), theo TICKET-02 mục 1.1, 1.2 và 4.
 - Gather nhận day/active_upgrades; input có nút mới và buy không kế thừa qua frame; kho hỗ trợ hai loại mới.
 
 ## Kiểm chứng
-- Toàn bộ test: **88/88 đạt**, gồm HTTP live.
-- Test mới phần Minh: **30/30 đạt**.
+- Sau cập nhật main: toàn bộ test **92/92 đạt**, gồm HTTP live và test day/Shop/pause của Hải.
+- Test phần Minh: **31/31 đạt**, gồm kiểm tương thích keyword allow_buy của CLI.
 - Bốn replay P1 giống byte; cá kèo/kèo nèo bàn giao đúng qua hai tiến trình gather → quan.
 - Gather đủ 10.800 tick: **0,5051 s** trên máy chạy. Chưa phải benchmark cả Ngày.
 - Bằng chứng: `docs/members/minhh25-phase-2/`; API: `docs/contracts/phase-2.md`.
 
 ## Điều chỉnh test cũ theo yêu cầu mới
-Đọc fish_initial từ dữ liệu thay số 6; test từ chối attack v1.0 dùng BUTTONS_V10; fixture P1 dùng random_fish:false/monsters:[] để giữ phạm vi kiểm luật cũ. Lý do chi tiết có trong hợp đồng bàn giao và commit code.
+Đọc fish_initial từ dữ liệu thay số 6; test từ chối attack v1.0 dùng BUTTONS_V10; fixture P1 dùng random_fish:false/monsters:[] để giữ phạm vi kiểm luật cũ. Sau khi main có day, smoke kiểm hỗ trợ day theo contract_version. Lý do chi tiết có trong hợp đồng bàn giao và commit code.
 
 ## AI và phần cần tích hợp
 Codex triển khai, kiểm thử và tự rà theo Ticket; chưa ghi nhận review của người thật. Nhật ký riêng ở docs/members/minhh25.md để QA tổng hợp.

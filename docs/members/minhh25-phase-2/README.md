@@ -4,6 +4,13 @@ Ngày ghi: 2026-11-21. Nguồn: `docs/requirements/phase-2.txt`; phân công: `d
 
 Commit code/test: `84b1f1d` trên nhánh `nguyendinhminh`. Tài liệu/log được bàn giao trong commit kế tiếp. Chưa đẩy thẳng main hoặc gắn tag; phần dùng chung cần được gộp sớm qua PR để đồng đội dùng.
 
+## Cập nhật sau khi gộp main 4835c37
+
+- Đã kết hợp API `load_frames(..., allow_buy=...)` của Hải với nút/input v1.1 của Minh. Cho phép truyền False để cấm buy tường minh; buy vẫn chỉ tồn tại trong frame khai báo.
+- `--mode day` nay có trên main: smoke P1 kiểm theo phiên bản contract, không tiếp tục cấm day ở v1.1. Chi tiết lý do bổ sung trong tài liệu contract.
+- **92/92 test đạt**, gồm 31 test gather P2 và các test day/Shop/pause của Hải: [merge-main-tests.txt](merge-main-tests.txt). Các log 88/30 phía dưới giữ làm lịch sử trước tích hợp.
+- Chỉ giải quyết conflict input và regression tương ứng; parser scenario/UI và phần nối day/active_upgrades vẫn cần chủ module kiểm theo bàn giao.
+
 | Kiểm tra đã chạy | Kết quả | Bằng chứng |
 |---|---|---|
 | Toàn bộ `unittest discover -s tests -v`, PYTHONPATH=tests:. | **88/88 đạt**, gồm test HTTP live | [test-suite.txt](test-suite.txt) |

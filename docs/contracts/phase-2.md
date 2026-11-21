@@ -52,5 +52,6 @@ Hiện parser của QA chưa nhận monsters/age_ticks/ca_keo/keo_neo fixture; t
 1. Snapshot mặc định đọc số lượng từ fish_initial (v1.1 là 8), thay assertion cố định 6 của v1.0 (Ticket §4.1).
 2. Test nút attack bị từ chối của v1.0 truyền BUTTONS_V10 tường minh; smoke v1.1 vẫn từ chối nút lạ, nhận attack/photo đúng kiểu để bỏ qua khi mở rộng chưa bật (Ticket §4.2).
 3. Fixture test_gather.py đặt random_fish:false và monsters:[] để tiếp tục kiểm riêng luật/cooldown Phase 1 với cá đứng yên. Test cá bơi và quái ở test_gather_p2.py.
+4. Sau khi gộp main có vòng day của Hải: smoke mode day kiểm theo contract_version (v1.0 từ chối, v1.1 chạy được), thay việc luôn coi day là mode tương lai. Parser giữ keyword allow_buy của CLI Hải; mặc định suy từ bộ nút, truyền False vẫn từ chối buy.
 
 Chạy `PYTHONPATH=tests:. python3 -m unittest discover -s tests -v`. Kết quả phần Minh và nguồn nhật ký AI riêng ở `docs/members/minhh25.md`; QA tổng hợp vào bằng chứng chính của Phase 2 sau tích hợp.

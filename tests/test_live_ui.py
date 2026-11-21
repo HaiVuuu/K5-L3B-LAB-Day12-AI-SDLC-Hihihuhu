@@ -106,6 +106,14 @@ class LiveGates(unittest.TestCase):
         st = state(g)
         self.assertEqual(st["player"]["pos"], [2, 0])
 
+    def test_catalog_co_do_tuoi_de_client_tinh_ngan_on(self):
+        t = tuning()
+        t["freshness"] = {"initial": 100, "spoiled_below": 30}
+        g = LiveGame("gather", t, {}, 1)
+        self.games.append(g)
+        g.start()
+        self.assertEqual(state(g)["catalog"]["freshness"]["spoiled_below"], 30)
+
     def test_buy_khong_hop_le_bi_tu_choi(self):
         g = self.game("day")
         with self.assertRaises(ValueError):

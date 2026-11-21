@@ -34,3 +34,5 @@
 - Tuân thủ quyền sở hữu `docs/plan/phase-2.md`: Minh không sửa scenario/runner/day/UI hay báo cáo QA; nhật ký/bằng chứng module đặt ở `docs/members/minhh25-phase-2/` để QA tổng hợp. Không gắn tag phase-2 khi chưa kiểm toàn nhóm trên main.
 - Phase 3: đọc `docs/requirements/phase-3.txt`, `docs/plan/phase-3.md` và ADR-0001. Test Minh: `PYTHONPATH=tests:. python3 -m unittest discover -s tests -p test_gather_p3.py -v`.
 - Chuyển schema theo `docs/contracts/phase-3.md`: giữ active v1.1 trong lúc quan/scenario chuyển tiếp; ứng viên v1.2 ở `docs/contracts/game.contract.v1.2.json`. Không gắn tag hoặc tuyên bố DoD v1.2 trước kiểm hai đầu bàn giao trên bản tích hợp.
+- Phase 4: đọc `docs/requirements/phase-4.txt` và `docs/plan/phase-4.md`. V1.3 dùng nguyên gameplay/schema nội bộ v1.2; không đổi tuning.
+- Kiểm release: `python3 tools/check_release.py --measure --out dist/release-status.json`; đóng đúng commit: `python3 tools/package_release.py --ref main --out dist/chonoi-v1.0.0.zip`. Không bịa phép đo hoặc tag bản chưa bàn giao.

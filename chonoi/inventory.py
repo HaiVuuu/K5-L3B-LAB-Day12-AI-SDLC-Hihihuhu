@@ -27,9 +27,9 @@ def inventory_version(contract_version=None):
                 contract_version = json.load(source)["contract_version"]
         except (OSError, ValueError, KeyError, TypeError) as error:
             raise BadInput(f"không đọc được contract_version: {error}")
-    if contract_version not in ("1.0", "1.1", "1.2"):
+    if contract_version not in ("1.0", "1.1", "1.2", "1.3"):
         raise BadInput(f"contract_version chưa hỗ trợ: {contract_version}")
-    return contract_version
+    return "1.2" if contract_version == "1.3" else contract_version
 
 
 def validate_instances(items, kinds=KINDS_P2):

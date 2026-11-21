@@ -1,0 +1,12 @@
+test_v13_does_not_change_v12_tuning (test_release_p4.ReleaseContract.test_v13_does_not_change_v12_tuning) ... ok
+test_v13_inventory_is_strict_individual_schema (test_release_p4.ReleaseContract.test_v13_inventory_is_strict_individual_schema) ... ok
+test_v13_requires_bench_and_soak_commands (test_release_p4.ReleaseContract.test_v13_requires_bench_and_soak_commands) ... ok
+test_v13_scenario_uses_individual_validation (test_release_p4.ReleaseContract.test_v13_scenario_uses_individual_validation) ... ok
+test_v13_snapshots_and_events_match_v12_in_all_three_modes (test_release_p4.ReleaseContract.test_v13_snapshots_and_events_match_v12_in_all_three_modes) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.025s
+
+OK
+
+exit_code=0

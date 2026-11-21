@@ -27,7 +27,7 @@ class GatherRules(unittest.TestCase):
     def session(self, player=None, **scenario):
         return Session("gather", self.tuning,
                        {"player": {"pos": [20, 0], **(player or {})},
-                        "nodes": [], "fish": [], **scenario}, 42)
+                        "nodes": [], "fish": [], "random_fish": False, "monsters": [], **scenario}, 42)
 
     def step(self, session, move=(0, 0), *buttons):
         rows = session.step(InputState(move, {}, set(buttons)))

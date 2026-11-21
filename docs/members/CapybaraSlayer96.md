@@ -1,12 +1,11 @@
-# CapybaraSlayer96 — phản tư cá nhân (≤ 200 từ, bản nháp chờ Bảo xác nhận)
+# CapybaraSlayer96 — phản tư cá nhân (≤ 200 từ)
 
-- Tôi đã làm (Phase 4, nhánh `doanxuanduybao`):
-  - `0b19e4f`: ba cảnh báo có chữ và biểu tượng (thủy quái gần, oxy sắp hết, khách sắp giận) và chế độ tương phản cao (phím H, `?hc=1`).
-  - `63cdef9`: `chonoi/bench.py` đo FPS trong trình duyệt headless ở 1280×720, kèm 4 test.
-  - `6128669`: CL-10, nhật ký AI, ảnh và [bench.json](CapybaraSlayer96-phase-4/README.md).
-  - UI Phase 1–3 do Hùng làm thay; tôi không nhận phần đó.
-- Tôi đã review/hỗ trợ: Bảo tự điền.
-- AI sai ở đâu và tôi phát hiện thế nào: Claude Code đặt oxy thấp và thủy quái chung một kịch bản chụp ảnh. Ảnh ra lúc Út Sen đã ngất, cảnh báo vẫn đè lên màn kết thúc. Tôi xem ảnh thì phát hiện; AI sửa để ẩn cảnh báo khi buổi kết thúc và tách kịch bản.
-- Điều tôi học được: Bảo tự điền.
-
-Bench máy dev: avg 58 FPS, 1% low 12 FPS, chưa đạt mốc 60/30. Chưa chơi thử thủ công ba cảnh báo.
+- Tôi đã làm (Phase 4):
+  - `0b19e4f`: ba cảnh báo có chữ, biểu tượng và chế độ tương phản cao (phím H).
+  - `63cdef9`: `chonoi/bench.py` đo FPS trong trình duyệt, 4 test.
+  - `d3ef384`: đồ họa chợ nổi.
+  - `6128669`, `921d8ac`: CL-10, nhật ký AI, [bằng chứng](CapybaraSlayer96-phase-4/README.md).
+  - Tự chơi thử ba cảnh báo ở tương phản cao: đều đúng. UI Phase 1–3 do Hùng làm thay.
+- Tôi đã review/hỗ trợ: đọc chéo với Hùng (cặp dự phòng `client/ui` ↔ `qa`).
+- AI sai ở đâu: Claude Code gộp oxy thấp và thủy quái vào một kịch bản chụp ảnh; ảnh ra lúc Út Sen đã ngất, cảnh báo đè màn kết thúc. Tôi xem ảnh thì phát hiện; AI ẩn cảnh báo khi hết buổi và tách kịch bản.
+- Điều tôi học được: giao việc rõ cho AI. Cho AI đọc plan và quyền sở hữu file trước thì nó chỉ sửa file của tôi, phần người khác thì báo lại.

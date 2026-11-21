@@ -41,8 +41,16 @@ def ingredient_kinds(tuning):
     return tuple(sorted(kinds))
 
 
+def _version_tuple(v):
+    try:
+        return tuple(int(x) for x in str(v).split("."))
+    except ValueError:
+        return (0,)
+
+
 def _is_v12(tuning):
-    return tuning.get("_contract_version") == "1.2" and "freshness" in tuning
+    """Luật kho cá thể áp dụng từ contract 1.2 trở lên (1.3 của Phase 4 chỉ thêm bench_cmd/soak_cmd)."""
+    return _version_tuple(tuning.get("_contract_version")) >= (1, 2) and "freshness" in tuning
 
 
 def _spoiled_below(tuning):
@@ -260,7 +268,7 @@ def _validate_quan(b, tuning):
         if _is_v12(tuning):
             _check_items("stock", b["stock"], tuning)
         else:
-            validate_items(b["stock"], ingredient_kinds(tuning))
+            validate_items(b["stock"], ingredient_kinds(tuning), contract_version="1.1")  # nhánh bộ đếm cũ: không phụ thuộc manifest
     p = b.get("player", {})
     if not isinstance(p, dict) or set(p) - QUAN_PLAYER_KEYS:
         raise BadInput("quan.player chỉ có pos và vel")

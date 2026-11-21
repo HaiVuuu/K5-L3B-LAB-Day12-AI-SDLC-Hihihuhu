@@ -1,8 +1,8 @@
-# hungvueducation-hash — phản tư cá nhân Phase 1 (≤ 200 từ)
+# hungvueducation-hash — phản tư cá nhân (≤ 200 từ)
 
-Bản nháp do Claude Code ghi theo công việc thực tế trong phiên; Hùng cần tự xác nhận và chỉnh lại phần phản tư trước khi nộp.
+Bản nháp do Claude Code ghi theo công việc thực tế; Hùng cần tự xác nhận và chỉnh lại trước khi nộp.
 
-- Tôi đã làm (kèm link commit): điền handle vào `TEAM.md` ([33cffac](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/33cffac)); dựng `tests/test_integration.py` cho chuỗi gather → kho → quan, tất định theo seed ([72d0b6d](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/72d0b6d)); gỡ `expectedFailure` sau khi lõi gather xong ([4f9103f](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/4f9103f), [5685495](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/5685495)). Hiện 8 test chạy, 2 test quán còn `skip` chờ lõi `sim/quan`.
-- Tôi đã review (kèm link): chưa có review chéo có bằng chứng. Mới chỉ đọc `chonoi/sim/*` và `docs/contracts/` để viết test, chưa review PR của Minh hay Hải.
-- AI sai ở đâu và tôi phát hiện thế nào: test hái nút dùng `regrow_ticks: 600` trong kịch bản; đó là bộ đếm còn lại nên nút bị coi là chưa mọc, kho ra rỗng. Phát hiện bằng cách chạy tay headless, so hai kịch bản có/không có trường này; lỗi ở test, không ở `gather.py`.
-- Điều học được: test `expectedFailure` giúp biết khi nào lõi xong, nhưng phải tách "lõi chưa làm" khỏi "test sai" trước khi tin kết luận.
+- Tôi đã làm (kèm link commit): handle trong `TEAM.md` ([33cffac](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/33cffac)); `tests/test_integration.py` gather → kho → quan ([72d0b6d](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/commit/72d0b6d)), nay chạy trên cả contract 1.1 và 1.2; `scenario.py` + `test_scenario_qa.py` + `test_smoke_p3.py` cho kho cá thể ([PR #9](https://github.com/HaiVuuu/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/pull/9)); `test_smoke_p4.py`, `docs/verification/phase-3.md` và `phase-4.md`.
+- Tôi đã review (kèm link): chưa có review chéo có bằng chứng. Mới đọc `sim/*` và Ticket-03 để viết test.
+- AI sai ở đâu và tôi phát hiện thế nào: nhận biết v1.2 bằng "có `freshness`" là sai, vì manifest chuyển tiếp có `freshness` mà vẫn ghi 1.1; phát hiện khi đọc Ticket-03 và ADR của Minh, rồi chạy lại trên bản thật.
+- Điều học được: chạy test trên bản triển khai thật trước khi tin; ghi rõ mục nào chưa kiểm chứng.

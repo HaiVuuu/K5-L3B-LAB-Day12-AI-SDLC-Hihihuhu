@@ -1,0 +1,7 @@
+# Clone sạch origin/main: 7522453
+# lệnh 1: git clone <repo>   lệnh 2: cd <repo>   lệnh 3: python -m unittest discover -s tests
+Python 3.12.10
+----------------------------------------------------------------------
+Ran 167 tests in 104.475s
+
+OK (skipped=10)

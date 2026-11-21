@@ -1,4 +1,4 @@
-.........................................................ss..........................................Exception in thread Thread-80 (_readerthread):
+....................................................................................ss.............................................Exception in thread Thread-90 (_readerthread):
 Traceback (most recent call last):
   File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
     self.run()
@@ -11,7 +11,7 @@ Traceback (most recent call last):
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
-Exception in thread Thread-82 (_readerthread):
+Exception in thread Thread-92 (_readerthread):
 Traceback (most recent call last):
   File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
     self.run()
@@ -24,7 +24,7 @@ Traceback (most recent call last):
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
-...Exception in thread Thread-102 (_readerthread):
+...Exception in thread Thread-112 (_readerthread):
 Traceback (most recent call last):
   File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
     self.run()
@@ -39,6 +39,6 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 23: character maps to <undefined>
 ...............ssssssss....
 ----------------------------------------------------------------------
-Ran 131 tests in 51.179s
+Ran 161 tests in 78.454s
 
 OK (skipped=10)

@@ -41,8 +41,16 @@ def ingredient_kinds(tuning):
     return tuple(sorted(kinds))
 
 
+def _version_tuple(v):
+    try:
+        return tuple(int(x) for x in str(v).split("."))
+    except ValueError:
+        return (0,)
+
+
 def _is_v12(tuning):
-    return tuning.get("_contract_version") == "1.2" and "freshness" in tuning
+    """Luật kho cá thể áp dụng từ contract 1.2 trở lên (1.3 của Phase 4 chỉ thêm bench_cmd/soak_cmd)."""
+    return _version_tuple(tuning.get("_contract_version")) >= (1, 2) and "freshness" in tuning
 
 
 def _spoiled_below(tuning):

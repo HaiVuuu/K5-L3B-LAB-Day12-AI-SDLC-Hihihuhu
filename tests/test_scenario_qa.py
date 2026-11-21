@@ -170,6 +170,13 @@ class KhoCaThe(unittest.TestCase):
         with self.assertRaises(BadInput):
             load("quan", {"stock": [it("I1")]}, t)
 
+    def test_contract_1_3_giu_luat_kho_ca_the_cua_1_2(self):
+        t = tuning(v12=True)
+        t["_contract_version"] = "1.3"
+        load("quan", {"stock": [it("I1")]}, t)
+        with self.assertRaises(BadInput):
+            load("quan", {"stock": {"ca_loc": 1}}, t)
+
     def test_v11_van_dung_bo_dem_cu(self):
         t = tuning(v12=False)
         load("quan", {"stock": {"ca_loc": 2}}, t)

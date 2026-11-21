@@ -1,6 +1,6 @@
 """Smoke Phase 3 (QA, hộp đen): kho cá thể {id, kind, fresh} và độ tươi — Test Contract v1.2 (docs/plan/phase-3.md).
 
-Chỉ chạy khi `game.contract.json` có `contract_version: "1.2"` (manifest chuyển tiếp có `freshness` nhưng vẫn
+Chỉ chạy khi `game.contract.json` có `contract_version` từ "1.2" trở lên (manifest chuyển tiếp có `freshness` nhưng vẫn
 "1.1" thì chưa bật); trước đó tự bỏ qua với lý do rõ ràng. Chỉ khẳng định những điều Ticket-03 nêu thẳng
 (ngưỡng `fresh < 30` là ươn, `spoiled` {item_id, kind, location} ở tick 1, schema file kho, mã thoát 2, bàn giao
 file khớp snapshot quán). Điều còn mơ hồ (base_price, giữ lại khi ươn) KHÔNG đoán ở đây — xem
@@ -21,7 +21,7 @@ def contract():
         return json.load(f)
 
 
-HAS_V12 = contract().get("contract_version") == "1.2"
+HAS_V12 = tuple(int(x) for x in contract().get("contract_version", "0").split(".")) >= (1, 2)  # 1.3 giữ luật 1.2
 SKIP = unittest.skipUnless(HAS_V12, "game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2")
 
 
@@ -73,8 +73,12 @@ class Spoilage(unittest.TestCase):
                                      "--out", w.path("q.jsonl"))
             self.assertEqual(code, 0, err)
             stock = snapshots(read_jsonl(w.path("q.jsonl")))[0]["stock"]
-            self.assertEqual(sorted((x["id"], x["kind"], x["fresh"]) for x in stock),
-                             sorted((x["id"], x["kind"], x["fresh"]) for x in saved["items"]))
+            # Ticket-03: dung sai quan sát độ tươi ±0.01 (JSONL làm tròn 3 chữ số, file kho giữ đủ độ chính xác)
+            q = {x["id"]: x for x in stock}
+            self.assertEqual(sorted(q), sorted(x["id"] for x in saved["items"]))
+            for x in saved["items"]:
+                self.assertEqual(q[x["id"]]["kind"], x["kind"])
+                self.assertAlmostEqual(q[x["id"]]["fresh"], x["fresh"], delta=0.01)
             by_id = {x["id"]: x["fresh"] for x in saved["items"]}  # hao đầu bước gather: 0.5 điểm/s = 0.5/60 mỗi tick
             self.assertAlmostEqual(by_id["I1"], 80 - 0.5 / 60, delta=0.01)
             self.assertAlmostEqual(by_id["I2"], 64.5 - 0.5 / 60, delta=0.01)

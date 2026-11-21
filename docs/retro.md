@@ -11,11 +11,12 @@
 - 1 hành động cho Phase 3: Integrator đẩy contract trước khi chia nhánh; QA viết test theo spec rồi chạy trên sim thật trước khi tin kết quả.
 
 ## Phase 4 (cuối)
-- Rà lại hành động Phase 2: đã làm chưa? vì sao?
-- Điều tốt / điều tệ:
-- Số liệu: số commit theo người, cách đọc code của nhau, token theo người:
-- Một lần AI sai và cách nhóm phát hiện:
-- Nếu làm lại, đổi gì:
+- Rà lại hành động Phase 2 (phần QA; bản nháp do Claude Code ghi, Hùng cần xác nhận): hành động là "Integrator đẩy contract trước khi chia nhánh; QA viết test theo spec rồi chạy trên sim thật trước khi tin kết quả". Nửa sau **đã làm**: smoke P3 chạy thử trên gather v1.2 và quan v1.2 thật, tìm ra 3 vấn đề thật. Nửa đầu **chưa làm được**: contract v1.2/1.3 vẫn chưa vào `main` ở thời điểm Phase 4, nên `main` đỏ vì gather (v1.1) và quan (v1.2) lệch phiên bản.
+- Điều tốt: test viết theo spec và kiểm trên bản thật bắt được lỗi sớm; mỗi người sở hữu file riêng nên ít xung đột merge; PR có mô tả "đã kiểm / chưa kiểm".
+- Điều tệ: bàn giao contract chậm làm đội chuyển phiên bản không đồng bộ; `TEAM.md` bị mất handle của Minh sau một lần merge mà không ai phát hiện tới Phase 4; Ticket phase sau không nằm trong repo chung nên QA phải suy từ plan; chưa ai chạy bench/soak thật.
+- Số liệu: số commit theo người đọc từ `git shortlog -sn origin/main` (chưa tổng hợp trong bản nháp này); cách đọc code của nhau: chưa có bằng chứng review chéo bởi người thật; token theo người: công cụ không báo, không ước đoán.
+- Một lần AI sai và cách nhóm phát hiện: test hái nút đặt `regrow_ticks: 600` nên nút chưa mọc (lỗi ở test, phát hiện bằng chạy tay headless); smoke P3 ban đầu so `fresh` chính xác trong khi JSONL làm tròn 3 chữ số (phát hiện khi chạy trên bản thật, Ticket-03 cho dung sai ±0.01); nhận biết v1.2 bằng "có `freshness`" sai vì manifest chuyển tiếp có freshness mà vẫn 1.1.
+- Nếu làm lại, đổi gì: chốt và đẩy contract + ADR chuyển phiên bản lên `main` trước khi chia nhánh; có một lệnh `check_team` trong CI; đưa Ticket từng phase vào `docs/requirements/` ngay khi phát.
 
 ## Phase 3 — ghi chú từ phần QA (bản nháp do Claude Code ghi, Hùng cần xác nhận)
 - Làm được: kiểm scenario cho 6 nguyên liệu, `monsters`, và kho cá thể v1.2 (13 test); dựng smoke v1.2 tự kích hoạt khi contract có `freshness`.

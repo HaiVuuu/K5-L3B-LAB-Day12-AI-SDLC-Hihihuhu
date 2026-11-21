@@ -38,7 +38,7 @@ def contract_version():
         return json.load(f)["contract_version"]
 
 
-V12 = contract_version() == "1.2"
+V12 = tuple(int(x) for x in contract_version().split(".")) >= (1, 2)  # 1.3 (Phase 4) giữ luật kho của 1.2
 
 
 def hold(*kinds):

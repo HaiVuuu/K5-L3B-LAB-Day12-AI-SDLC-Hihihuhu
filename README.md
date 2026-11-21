@@ -23,6 +23,15 @@ python3 -m chonoi.live --mode gather                                # chơi th�
 
 Game cần chế độ **headless** theo Test Contract (`python3 -m chonoi.headless --mode gather|quan …`) để được chạy và chấm tự động. **Công nghệ không ràng buộc**: khung Python trong `chonoi/` chỉ là gợi ý, chi tiết ở [`docs/STARTER.md`](docs/STARTER.md).
 
+## Bàn giao gather Phase 1 (Minh)
+
+Lõi oxy/ngạt/ngất, hái/mọc lại, bắt cá/hồi chiêu, giỏ và xuất kho đã được triển khai theo PRD-0 E–G. Đây là trạng thái module gather; luật quán còn TODO, chưa đủ điều kiện gắn tag toàn nhóm.
+
+- Điều khiển: WASD/mũi tên, E tương tác/cập bến, Space bắt cá, R chơi lại. Chạy quán bằng `python3 -m chonoi.live --mode quan`.
+- Điểm = `earned + tuning.score.reputation_multiplier × floor(reputation)`; tiền tính bằng nghìn đồng. Gather độc lập chưa thu tiền.
+- Kiểm nhanh phần Minh: `python3 tools/check_gather.py`; kiểm kho hai tiến trình và so byte: `python3 tools/check_gather_replay.py`.
+- [Hợp đồng kho, snapshot, sự kiện](docs/contracts/README.md) · [Bằng chứng](docs/proof/phase-1/minh/README.md). Test cả nhóm vẫn bằng lệnh trong mục Bắt đầu nhanh.
+
 ## Tự do sáng tạo
 
 Ngoài phần đề yêu cầu, nhóm được **thêm** nhân vật, loài cá/cây, sinh vật, món, bản đồ, cơ chế, câu chuyện, đồ họa, âm nhạc… với ba điều kiện: **không phá phần cố định** (tắt ở headless), ghi mục **"Sáng tạo của nhóm"** trong README của nhóm, và **làm lõi đúng trước**.

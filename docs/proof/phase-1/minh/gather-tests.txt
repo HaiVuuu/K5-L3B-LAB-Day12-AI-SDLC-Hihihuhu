@@ -1,0 +1,31 @@
+$ /opt/homebrew/opt/python@3.13/bin/python3.13 tools/check_gather.py
+test_faint_overwrites_inventory_with_empty_and_stops_once (test_gather.GatherHeadless.test_faint_overwrites_inventory_with_empty_and_stops_once) ... ok
+test_real_harvest_transfers_to_quan_and_replays_byte_identically (test_gather.GatherHeadless.test_real_harvest_transfers_to_quan_and_replays_byte_identically) ... ok
+test_tick_limit_keeps_existing_inventory_bytes (test_gather.GatherHeadless.test_tick_limit_keeps_existing_inventory_bytes) ... ok
+test_buttons_only_act_on_rising_edge (test_gather.GatherRules.test_buttons_only_act_on_rising_edge) ... ok
+test_cooldown_reusable_at_exact_deadline (test_gather.GatherRules.test_cooldown_reusable_at_exact_deadline) ... ok
+test_dive_uses_end_position_and_does_not_repeat (test_gather.GatherRules.test_dive_uses_end_position_and_does_not_repeat) ... ok
+test_dock_before_harvest_at_exact_radius_on_last_tick (test_gather.GatherRules.test_dock_before_harvest_at_exact_radius_on_last_tick) ... ok
+test_dock_distance_uses_both_axes_even_underwater (test_gather.GatherRules.test_dock_distance_uses_both_axes_even_underwater) ... ok
+test_faint_lifo_precedes_catch_and_time (test_gather.GatherRules.test_faint_lifo_precedes_catch_and_time) ... ok
+test_first_choke_is_empty_tick_plus_interval_minus_one (test_gather.GatherRules.test_first_choke_is_empty_tick_plus_interval_minus_one) ... ok
+test_fish_whole_yield_at_radius_tie_and_hold_order (test_gather.GatherRules.test_fish_whole_yield_at_radius_tie_and_hold_order) ... ok
+test_full_hold_keeps_node_ready (test_gather.GatherRules.test_full_hold_keeps_node_ready) ... ok
+test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) ... ok
+test_nearest_ready_node_at_radius_and_natural_id_tie (test_gather.GatherRules.test_nearest_ready_node_at_radius_and_natural_id_tie) ... ok
+test_node_outside_radius_or_underwater_is_not_gathered (test_gather.GatherRules.test_node_outside_radius_or_underwater_is_not_gathered) ... ok
+test_node_regrows_exactly_after_configured_delay (test_gather.GatherRules.test_node_regrows_exactly_after_configured_delay) ... ok
+test_oxygen_clamps_and_empty_is_emitted_once (test_gather.GatherRules.test_oxygen_clamps_and_empty_is_emitted_once) ... ok
+test_partial_capacity_keeps_nearest_fish_and_does_not_try_smaller (test_gather.GatherRules.test_partial_capacity_keeps_nearest_fish_and_does_not_try_smaller) ... ok
+test_regrowth_sorted_then_harvested_in_same_tick (test_gather.GatherRules.test_regrowth_sorted_then_harvested_in_same_tick) ... ok
+test_surface_depth_is_inclusive_refills_and_resets_choke (test_gather.GatherRules.test_surface_depth_is_inclusive_refills_and_resets_choke) ... ok
+test_surface_or_miss_does_not_start_cooldown (test_gather.GatherRules.test_surface_or_miss_does_not_start_cooldown) ... ok
+test_surfacing_on_choke_deadline_prevents_damage (test_gather.GatherRules.test_surfacing_on_choke_deadline_prevents_damage) ... ok
+test_tuning_controls_oxygen_choke_yield_capacity_and_cooldown (test_gather.GatherRules.test_tuning_controls_oxygen_choke_yield_capacity_and_cooldown) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.255s
+
+OK
+
+exit_code=0

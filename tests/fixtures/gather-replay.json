@@ -1,0 +1,30 @@
+[
+  {
+    "name": "harvest_on_last_tick",
+    "scenario": {"player": {"pos": [20, 0]}, "nodes": [{"id": "N1", "kind": "bong_sung", "pos": [22, 0]}], "fish": [], "time_left_ticks": 1},
+    "frames": [{"tick": 0, "interact": true}],
+    "inventory": {"items": {"bong_sung": 1}},
+    "reason": "time"
+  },
+  {
+    "name": "catch_on_last_tick",
+    "scenario": {"player": {"pos": [20, 5]}, "hold": ["bong_sung"], "nodes": [], "fish": [{"id": "F1", "kind": "ca_linh", "pos": [22, 5]}], "time_left_ticks": 1},
+    "frames": [{"tick": 0, "catch": true}],
+    "inventory": {"items": {"bong_sung": 1, "ca_linh": 3}},
+    "reason": "time"
+  },
+  {
+    "name": "faint_lifo",
+    "scenario": {"player": {"pos": [20, 5], "oxygen_ticks": 0, "zero_oxy_ticks": 59, "hp": 1}, "hold": ["ca_loc", "bong_sung", "bong_dien_dien"], "nodes": [], "fish": []},
+    "frames": [],
+    "inventory": {"items": {}},
+    "reason": "fainted"
+  },
+  {
+    "name": "prd_dock_smoke",
+    "scenario": {"hold": ["ca_loc", "bong_sung", "bong_sung"]},
+    "frames": [{"tick": 0, "interact": true}],
+    "inventory": {"items": {"bong_sung": 2, "ca_loc": 1}},
+    "reason": "docked"
+  }
+]

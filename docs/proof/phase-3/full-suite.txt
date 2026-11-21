@@ -1,4 +1,4 @@
-.......................................................................................ss..........................................Exception in thread Thread-90 (_readerthread):
+....................................................................................ss.............................................Exception in thread Thread-90 (_readerthread):
 Traceback (most recent call last):
   File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
     self.run()
@@ -39,6 +39,6 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 23: character maps to <undefined>
 ...............ssssssss....
 ----------------------------------------------------------------------
-Ran 161 tests in 75.966s
+Ran 161 tests in 78.454s
 
 OK (skipped=10)

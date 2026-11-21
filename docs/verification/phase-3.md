@@ -21,14 +21,14 @@ Ghi trung thực: Phase 3 đổi **kho đếm theo loại → kho cá thể `{id
 `main` đã có gather v1.2 "staged" và manifest ứng viên `docs/contracts/game.contract.v1.2.json`, nhưng `game.contract.json` vẫn 1.1. Để biết cái giá của việc bật v1.2, đã chạy cả bộ test trên bản sao của `main` với manifest ứng viên làm `game.contract.json` ([full-suite-on-v12-manifest.txt](../proof/phase-3/full-suite-on-v12-manifest.txt)).
 
 - Trên manifest hiện tại của `main` (1.1): **161 test, OK (skipped=10)** ([full-suite.txt](../proof/phase-3/full-suite.txt)).
-- Trên manifest v1.2: **33 test fail** (21 fail, 12 lỗi). Đây là hệ quả dự kiến của đổi schema kho (fixture bộ đếm → cá thể) và quan chưa v1.2, **không phải lỗi mới của luật**:
+- Trên manifest v1.2: **25 test fail** (13 fail, 12 lỗi) sau khi QA đã migrate `test_integration.py` (trước đó 33; `test_integration.py` chiếm 8). Đây là hệ quả dự kiến của đổi schema kho (fixture bộ đếm → cá thể) và quan chưa v1.2, **không phải lỗi mới của luật**:
 
 | File test | Số test fail | Nguyên nhân | Ai đổi |
 |---|---|---|---|
 | `test_gather.py` | 11 | fixture giỏ/kho đếm (`hold` là chuỗi) | Minh (đã ghi trong tài liệu của Minh: test CLI chạy v1.2 trong thư mục tạm) |
 | `test_gather_p2.py` | 7 | như trên | Minh |
-| `test_integration.py` | 8 | fixture `hold` chuỗi + so kho `{kind: số}`; phía quán còn dict | Hùng (QA) — **chưa migrate**, và phần quán chờ Hải |
-| `test_smoke_p1.py` | 2 | fixture kho đếm | cần đổi theo luật v1.2, ghi lý do ở commit khi bật |
+| `test_integration.py` | 0 (đã migrate) | Fixture dựng theo schema của contract đang chạy, kho so theo số lượng từng loại; trên v1.2 phần gather chạy và đạt, bước quán **tự bỏ qua** (9 test skip) tới khi `QuanSim` nhận kho cá thể, rồi tự chạy tiếp | Hùng (QA) — xong; phần quán chờ Hải |
+| `test_smoke_p1.py` | 2 | fixture kho đếm (test của giảng viên cấp) | cần đổi theo luật v1.2, ghi lý do ở commit khi bật |
 | `test_smoke_p3.py` | 2 | `QuanSim` chưa nhận kho cá thể (`dict(inventory)` crash) | Hải |
 | `test_quan_p2.py`, `test_live_ui.py`, `test_python_starter_units.py` | 1 + 1 + 1 | `quan`/`day` còn kho đếm; fixture hold chuỗi | Hải / Hùng |
 

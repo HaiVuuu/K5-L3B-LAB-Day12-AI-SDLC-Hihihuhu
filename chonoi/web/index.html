@@ -355,6 +355,7 @@ function drawGather(w, h) {
   const have = {}; (snap.hold || []).forEach((k) => (have[k] = (have[k] || 0) + 1));
   const nk = Object.keys(need).sort();
   if (nk.length) {
+    ctx.fillStyle = "rgba(8,14,20,.82)"; ctx.fillRect(w - 190, 6, 184, 40 + nk.length * 20);
     text("Cần lấy", w - 14, 28, { size: 16, align: "right", color: "#ffe082" });
     nk.forEach((k, i) => { const got = Math.min(have[k] || 0, need[k]); text((KIND_NAME[k] || k) + " " + got + "/" + need[k], w - 14, 50 + i * 20, { size: 15, align: "right", color: got >= need[k] ? "#a5d6a7" : "#e8eef2" }); });
   }

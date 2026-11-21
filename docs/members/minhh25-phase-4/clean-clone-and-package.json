@@ -1,14 +1,11 @@
 {
-  "source_commit": "21fef921644febf85681e37e51cdb45a07ac9993",
-  "clone_kind": "local git clone --no-hardlinks; clean tracked source, not yet pushed",
-  "commands": [
-    "git clone <local repository at source_commit>",
-    "cd <clone>",
-    "python3 -m chonoi.live --mode day --days 1 --port 0"
-  ],
+  "source_commit": "6c2969a4c7399acc77309e2ea1c810a896421787",
+  "clone_kind": "local clean clone, not a remote clone",
+  "command_count": 3,
   "initial_menu": true,
   "dock_to_quan": true,
   "stock_schema": "individual array",
-  "scope": "HTTP/runtime smoke only; warning visibility and contrast not verified",
-  "zip_without_git_headless": true
+  "scope": "HTTP/runtime; contrast and visual warnings pending",
+  "zip_without_git_headless": true,
+  "zip_contains_mit_and_soak": true
 }

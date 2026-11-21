@@ -9,7 +9,7 @@ import sys
 
 from .contract import load_contract
 from .errors import BadInput
-from .inputs import load_frames
+from .inputs import BUTTONS_V10, BUTTONS_V11, load_frames
 from .inventory import read_inventory
 from .runner import run
 from .scenario import load_scenario
@@ -41,11 +41,20 @@ def main(argv=None) -> int:
     p.add_argument("--inputs")
     p.add_argument("--inventory")
     p.add_argument("--inventory-out", dest="inventory_out")
+    p.add_argument("--days", type=_int("days"), default=None)
     p.add_argument("--snapshot-every", dest="snapshot_every", type=_int("snapshot-every"), default=10)
     a = p.parse_args(argv)
     try:
-        if a.mode == "day":
+        contract = load_contract()
+        is_v11 = contract.get("contract_version", "1.0") != "1.0"
+        if a.mode == "day" and not is_v11:
             raise BadInput("--mode day chưa hỗ trợ ở contract v1.0 (có từ v1.1)")
+        if a.days is not None:
+            if a.mode != "day":
+                raise BadInput("--days chỉ dùng với --mode day")
+            if not (1 <= a.days <= 5):
+                raise BadInput("--days phải từ 1 đến 5")
+        days = a.days if a.days is not None else 1
         if a.ticks < 0:
             raise BadInput("--ticks phải >= 0")
         if a.snapshot_every <= 0:
@@ -59,10 +68,10 @@ def main(argv=None) -> int:
         paths = [os.path.abspath(x) for x in outs + ins]
         if len(set(paths)) != len(paths):
             raise BadInput("các đường dẫn đầu vào/đầu ra phải khác nhau")
-        contract = load_contract()
         tuning = contract["tuning"]
-        scenario = load_scenario(a.scenario, a.mode, tuning)
-        frames = load_frames(a.inputs)
+        scenario = load_scenario(a.scenario, a.mode, tuning) if a.mode != "day" else {}
+        buttons = BUTTONS_V11 if is_v11 else BUTTONS_V10
+        frames = load_frames(a.inputs, buttons=buttons, allow_buy=is_v11)
         inventory = read_inventory(a.inventory) if a.inventory else None
         if inventory is not None and "stock" in scenario:
             raise BadInput("vừa có quan.stock vừa có --inventory")
@@ -71,7 +80,7 @@ def main(argv=None) -> int:
         return 2
     try:
         run(a.mode, tuning, scenario, a.seed, frames, a.ticks, a.out, a.snapshot_every,
-            inventory=inventory, inventory_out=a.inventory_out)
+            inventory=inventory, inventory_out=a.inventory_out, days=days, buttons=buttons)
     except BadInput as e:  # lỗi mức luật phát hiện lúc dựng sim
         sys.stderr.write(f"đầu vào sai: {e}\n")
         return 2

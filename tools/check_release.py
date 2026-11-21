@@ -42,7 +42,7 @@ def main(argv=None):
     add("team", run("team", [sys.executable, "tools/check_team.py"]), "xem release-check-logs/team.txt")
     sys.path.insert(0, str(ROOT / "tools"))
     from check_team import parse_team
-    members = parse_team((ROOT / "TEAM.md").read_text())
+    members = parse_team((ROOT / "TEAM.md").read_text(encoding="utf-8"))
     missing = [m["name"] for m in members if not m["handle"] or
                not (ROOT / "docs/members" / (m["handle"] + ".md")).is_file()]
     add("member_reflections", not missing, {"missing": missing})
@@ -62,7 +62,7 @@ def main(argv=None):
         bench_ok = run("bench", [*shlex.split(contract["bench_cmd"]), "--seed", "42", "--duration", "30", "--out", str(bench_path)])
         if bench_ok:
             try:
-                value = json.loads(bench_path.read_text())
+                value = json.loads(bench_path.read_text(encoding="utf-8"))
                 keys = {"avg_fps", "p1_low_fps", "frames", "measured_s", "load_ms"}
                 bench_ok = set(value) == keys and all(
                     isinstance(value[k], (int, float)) and not isinstance(value[k], bool) and

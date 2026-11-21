@@ -93,7 +93,7 @@ class QuanPhase3Tests(unittest.TestCase):
 
     def test_day_v12_handoff_preserves_item_schema_and_persistent_ids(self):
         sc = {
-            "gather": {"hold": ["ca_loc"], "random_fish": False, "time_left_ticks": 1},
+            "gather": {"hold": [{"id": "I1", "kind": "ca_loc", "fresh": 100}], "random_fish": False, "time_left_ticks": 1},
             "quan": {"random_customers": False, "time_left_ticks": 1},
         }
         sess = Session("day", v12_tuning(), sc, seed=1, days=2)
@@ -101,7 +101,7 @@ class QuanPhase3Tests(unittest.TestCase):
         sess.step(idle())  # gather -> quan
         snap = sess.snapshot()
         self.assertEqual(snap["phase"], "quan")
-        self.assertEqual(snap["stock"], [{"id": "I1", "kind": "ca_loc", "fresh": 100.0}])
+        self.assertEqual(snap["stock"], [{"id": "I1", "kind": "ca_loc", "fresh": 99.992}])
 
 
 if __name__ == "__main__":

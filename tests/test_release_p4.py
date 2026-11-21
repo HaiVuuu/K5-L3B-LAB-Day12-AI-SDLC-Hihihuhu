@@ -28,6 +28,7 @@ class ReleaseContract(unittest.TestCase):
         loaded = self.load(self.contract)
         self.assertEqual(loaded["contract_version"], "1.3")
         self.assertEqual(loaded["tuning"]["_contract_version"], "1.2")
+        self.assertTrue(loaded["tuning"]["v12_enabled"])
         for key in ("bench_cmd", "soak_cmd"):
             for invalid in (None, "", "  ", []):
                 with self.subTest(key=key, value=invalid):
@@ -70,6 +71,8 @@ class ReleaseContract(unittest.TestCase):
             with self.subTest(mode=mode):
                 sessions = [Session(mode, tuning, {}, 42) for tuning in tunings]
                 self.assertEqual(sessions[0].snapshot(), sessions[1].snapshot())
+                if mode == "quan":
+                    self.assertEqual(sessions[0].snapshot()["stock"], [])
                 for _ in range(10):
                     events = [session.step(InputState((0, 0), {}, set())) for session in sessions]
                     self.assertEqual(events[0], events[1])

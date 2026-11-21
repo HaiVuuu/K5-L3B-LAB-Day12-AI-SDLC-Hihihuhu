@@ -67,7 +67,7 @@ ZIP lấy đúng commit Git chỉ định, không lấy file chưa commit; recei
 
 ## Giới hạn và bằng chứng
 
-Bản chuẩn bị hiện còn thiếu bench/soak, có lỗi regression từ main trước Phase 4, thiếu hồ sơ thành viên và xác nhận LICENSE; chưa xác nhận UI tương phản cao. Theo dõi [báo cáo phần Minh](docs/members/minhh25-phase-4/README.md). README mô tả hợp đồng đích; chưa phải xác nhận DoD/phát hành toàn nhóm.
+Bản chuẩn bị còn thiếu bench, còn regression cần migration và phản tư Bảo cần xác nhận; chưa kiểm UI tương phản cao. Soak của Hải đã gộp và chạy thử 10 Ngày, 0 crash, hai lượt gameplay khớp. Đã bổ sung MIT theo yêu cầu Minh. Theo dõi [báo cáo phần Minh](docs/members/minhh25-phase-4/README.md); chưa phải xác nhận DoD/phát hành toàn nhóm.
 
 [TEAM](TEAM.md) · [Kế hoạch P4](docs/plan/phase-4.md) · [AI log](docs/ai-usage-log.md) · [Retro](docs/retro.md) · [Spec P4](docs/requirements/phase-4.txt) · [Hợp đồng kho](docs/contracts/phase-3.md). Starter: [VinUni-AI20k](https://github.com/VinUni-AI20k/K5-L3B-LAB-Day12-AI-SDLC).
 

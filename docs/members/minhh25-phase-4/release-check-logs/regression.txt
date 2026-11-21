@@ -11,7 +11,7 @@ test_faint_lifo_precedes_catch_and_time (test_gather.GatherRules.test_faint_lifo
 test_first_choke_is_empty_tick_plus_interval_minus_one (test_gather.GatherRules.test_first_choke_is_empty_tick_plus_interval_minus_one) ... ok
 test_fish_whole_yield_at_radius_tie_and_hold_order (test_gather.GatherRules.test_fish_whole_yield_at_radius_tie_and_hold_order) ... ERROR
 test_full_hold_keeps_node_ready (test_gather.GatherRules.test_full_hold_keeps_node_ready) ... ERROR
-test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) ... 
+test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) ...
   test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) (button='interact') ... FAIL
   test_last_tick_harvest_and_catch_enter_inventory (test_gather.GatherRules.test_last_tick_harvest_and_catch_enter_inventory) (button='catch') ... FAIL
 test_nearest_ready_node_at_radius_and_natural_id_tie (test_gather.GatherRules.test_nearest_ready_node_at_radius_and_natural_id_tie) ... FAIL
@@ -53,7 +53,7 @@ test_recoil_expiry_cannot_hit_in_same_step_and_clamps_bounds (test_gather_p2.P2M
 test_recoil_full_sixty_steps_and_coincident_direction (test_gather_p2.P2Monsters.test_recoil_full_sixty_steps_and_coincident_direction) ... ok
 test_active_upgrades_effective_maxima_and_new_day_reset (test_gather_p2.P2UpgradesAndHeadless.test_active_upgrades_effective_maxima_and_new_day_reset) ... ok
 test_headless_default_seeded_replay_includes_swimming_spawn_and_monsters (test_gather_p2.P2UpgradesAndHeadless.test_headless_default_seeded_replay_includes_swimming_spawn_and_monsters) ... ok
-test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) ... 
+test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) ...
   test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='fish') ... FAIL
   test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='plant') ... FAIL
 test_no_upgrade_standalone_remains_base_and_refill_caps_at_effective_max (test_gather_p2.P2UpgradesAndHeadless.test_no_upgrade_standalone_remains_base_and_refill_caps_at_effective_max) ... ok
@@ -130,8 +130,8 @@ test_id_sorting (test_python_starter_units.Units.test_id_sorting) ... ok
 test_input_edges_and_inherit (test_python_starter_units.Units.test_input_edges_and_inherit) ... ok
 test_live_inputs_keep_fast_tap_edge (test_python_starter_units.Units.test_live_inputs_keep_fast_tap_edge) ... ok
 test_session_steps_gather_and_dock (test_python_starter_units.Units.test_session_steps_gather_and_dock) ... ERROR
-test_cook_pick_serve_and_paid_with_tip (test_quan.QuanSimTests.test_cook_pick_serve_and_paid_with_tip) ... FAIL
-test_customer_arrives_reserves_stock_and_leaves_releases_stock (test_quan.QuanSimTests.test_customer_arrives_reserves_stock_and_leaves_releases_stock) ... FAIL
+test_cook_pick_serve_and_paid_with_tip (test_quan.QuanSimTests.test_cook_pick_serve_and_paid_with_tip) ... ok
+test_customer_arrives_reserves_stock_and_leaves_releases_stock (test_quan.QuanSimTests.test_customer_arrives_reserves_stock_and_leaves_releases_stock) ... ok
 test_no_dish_when_stock_insufficient (test_quan.QuanSimTests.test_no_dish_when_stock_insufficient) ... ok
 test_day_loop_shop_upgrade_applies_next_day_and_pause (test_quan_p2.QuanPhase2Tests.test_day_loop_shop_upgrade_applies_next_day_and_pause) ... ERROR
 test_oldest_order_priority_by_order_tick_then_table_id (test_quan_p2.QuanPhase2Tests.test_oldest_order_priority_by_order_tick_then_table_id) ... ok
@@ -195,8 +195,10 @@ Cập bến tick 0: kho ghi ra và quán đọc lại cùng id/kind; quán tick 
 test_hang_tuoi_khong_phat_spoiled (test_smoke_p3.Spoilage.test_hang_tuoi_khong_phat_spoiled) ... skipped 'game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2'
 test_nguong_30_phat_spoiled_o_tick_1 (test_smoke_p3.Spoilage.test_nguong_30_phat_spoiled_o_tick_1)
 Ticket-03: giỏ có hàng fresh = 30 đúng ngưỡng: hao đầu bước -> < 30 -> `spoiled` ở tick 1. ... skipped 'game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2'
+test_soak_10_days_completes_with_zero_crashes_and_repeats_deterministically (test_soak_p4.SoakPhase4Tests.test_soak_10_days_completes_with_zero_crashes_and_repeats_deterministically) ... ok
+test_soak_cli_writes_valid_json (test_soak_p4.SoakPhase4Tests.test_soak_cli_writes_valid_json) ... ok
 test_good (test_team_check.TeamCheck.test_good) ... ok
-test_template_is_rejected (test_team_check.TeamCheck.test_template_is_rejected) ... ok
+test_template_is_rejected (test_team_check.TeamCheck.test_template_is_rejected) ... FAIL
 test_too_few_members (test_team_check.TeamCheck.test_too_few_members) ... ok
 test_wrong_size_duplicate_and_outsider (test_team_check.TeamCheck.test_wrong_size_duplicate_and_outsider) ... ok
 
@@ -405,7 +407,7 @@ Traceback (most recent call last):
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 108, in __init__
     self.sim = self._build_gather()
                ~~~~~~~~~~~~~~~~~~^^
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 152, in _build_gather
+  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 155, in _build_gather
     sim = GatherSim(tuning, g_sc, self.streams, IdAllocator())
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/gather.py", line 60, in __init__
     self.hold = validate_instances(self.hold)
@@ -446,7 +448,7 @@ Traceback (most recent call last):
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 108, in __init__
     self.sim = self._build_gather()
                ~~~~~~~~~~~~~~~~~~^^
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 152, in _build_gather
+  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 155, in _build_gather
     sim = GatherSim(tuning, g_sc, self.streams, IdAllocator())
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/gather.py", line 60, in __init__
     self.hold = validate_instances(self.hold)
@@ -459,7 +461,7 @@ chonoi.errors.BadInput: cá thể cần đúng id,kind,fresh
 ERROR: test_day_v12_handoff_preserves_item_schema_and_persistent_ids (test_quan_p3.QuanPhase3Tests.test_day_v12_handoff_preserves_item_schema_and_persistent_ids)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/tests/test_quan_p3.py", line 98, in test_day_v12_handoff_preserves_item_schema_and_persistent_ids
+  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/tests/test_quan_p3.py", line 99, in test_day_v12_handoff_preserves_item_schema_and_persistent_ids
     sess = Session("day", v12_tuning(), sc, seed=1, days=2)
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/runner.py", line 47, in __init__
     self.sim = build_sim(mode, tuning, scenario, seed, inventory, days=days)
@@ -469,7 +471,7 @@ Traceback (most recent call last):
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 108, in __init__
     self.sim = self._build_gather()
                ~~~~~~~~~~~~~~~~~~^^
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 152, in _build_gather
+  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/day.py", line 155, in _build_gather
     sim = GatherSim(tuning, g_sc, self.streams, IdAllocator())
   File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/chonoi/sim/gather.py", line 60, in __init__
     self.hold = validate_instances(self.hold)
@@ -743,31 +745,6 @@ AssertionError: 2 != 0 : đầu vào sai: hold: mỗi cá thể phải có đún
 
 
 ======================================================================
-FAIL: test_cook_pick_serve_and_paid_with_tip (test_quan.QuanSimTests.test_cook_pick_serve_and_paid_with_tip)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/tests/test_quan.py", line 63, in test_cook_pick_serve_and_paid_with_tip
-    self.assertEqual(sess.snapshot()["stock"], {})
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: [] != {}
-
-======================================================================
-FAIL: test_customer_arrives_reserves_stock_and_leaves_releases_stock (test_quan.QuanSimTests.test_customer_arrives_reserves_stock_and_leaves_releases_stock)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/tests/test_quan.py", line 30, in test_customer_arrives_reserves_stock_and_leaves_releases_stock
-    self.assertEqual([e["name"] for e in evs], ["customer_arrived"])
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: Lists differ: ['no_dish'] != ['customer_arrived']
-
-First differing element 0:
-'no_dish'
-'customer_arrived'
-
-- ['no_dish']
-+ ['customer_arrived']
-
-======================================================================
 FAIL: test_inv_01_gather_writes_inventory_quan_reads_it (test_smoke_p1.Integration.test_inv_01_gather_writes_inventory_quan_reads_it)
 Ví dụ smoke test trong PRD-0 mục G: cập bến ở tick 0, quán đọc kho đúng nội dung.
 ----------------------------------------------------------------------
@@ -788,9 +765,18 @@ Traceback (most recent call last):
 AssertionError: 2 != 0 : đầu vào sai: hold: mỗi cá thể phải có đúng id, kind, fresh
 
 
+======================================================================
+FAIL: test_template_is_rejected (test_team_check.TeamCheck.test_template_is_rejected)
 ----------------------------------------------------------------------
-Ran 170 tests in 6.062s
+Traceback (most recent call last):
+  File "/Users/minh25/Documents/AI Thuc chien Vin/LAB/K5-L3B-LAB-Day12-AI-SDLC-Hihihuhu/tests/test_team_check.py", line 29, in test_template_is_rejected
+    self.assertTrue(check_team.validate(m, 4))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
 
-FAILED (failures=20, errors=16, skipped=10)
+----------------------------------------------------------------------
+Ran 172 tests in 7.190s
+
+FAILED (failures=19, errors=16, skipped=10)
 
 exit_code=1

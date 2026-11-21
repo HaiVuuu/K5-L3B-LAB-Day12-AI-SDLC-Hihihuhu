@@ -31,9 +31,9 @@ def main(argv=None):
 
     def run(name, command):
         result = subprocess.run(command, cwd=ROOT, env=env, text=True, capture_output=True)
+        content = "$ " + shlex.join(command) + "\n" + result.stdout + result.stderr + "\nexit_code=" + str(result.returncode)
         (logs / (name + ".txt")).write_text(
-            "$ " + shlex.join(command) + "\n" + result.stdout + result.stderr +
-            "\nexit_code=" + str(result.returncode) + "\n", encoding="utf-8")
+            "\n".join(line.rstrip() for line in content.splitlines()) + "\n", encoding="utf-8")
         return result.returncode == 0
 
     add("manifest", contract.get("contract_version") == "1.3" and
@@ -99,7 +99,7 @@ def main(argv=None):
     report = {"release": "v1.0.0", "commit": revision.stdout.strip() if revision.returncode == 0 else None,
               "worktree_status_at_check": worktree.stdout.splitlines(),
               "ready_for_team_release_review": all(c["passed"] for c in checks), "checks": checks, "measurements": measured,
-              "remaining_manual_checks": ["clone sạch và UI cảnh báo/tương phản cao", "bằng chứng QA đúng commit main", "review rồi cùng commit cho phase-4/v1.0.0"]}
+              "remaining_manual_checks": ["clone sạch và UI cảnh báo/tương phản cao", "các thành viên xác nhận phản tư thật, Bảo hiện còn nháp", "bằng chứng QA đúng commit main", "review rồi cùng commit cho phase-4/v1.0.0"]}
     target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"ready": report["ready_for_team_release_review"], "failed": [c["name"] for c in checks if not c["passed"]], "report": str(target)}, ensure_ascii=False))
     return 0 if report["ready_for_team_release_review"] else 1

@@ -30,7 +30,7 @@ test_roundtrip_one_quantum_above_30_does_not_spoil_early (test_gather_p3.P3Preci
 test_same_tick_handoff_does_not_decay_again_until_next_step (test_gather_p3.P3PrecisionAndCLI.test_same_tick_handoff_does_not_decay_again_until_next_step) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 0.426s
+Ran 30 tests in 0.454s
 
 OK
 

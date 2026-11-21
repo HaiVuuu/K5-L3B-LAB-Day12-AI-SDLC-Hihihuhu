@@ -1,32 +1,36 @@
 # Phase 4 — bàn giao Release/Integrator (Minh)
 
-Ngày: 2026-11-21. Theo `docs/plan/phase-4.md`, `docs/requirements/phase-4.txt`. Đây là bản chuẩn bị, **chưa Release**. Người dùng cho phép tự push nếu không có issue; hiện có issue thật nên giữ commit local tới khi thống nhất cách bàn giao.
+Theo docs/plan/phase-4.md và docs/requirements/phase-4.txt, ngày 2026-11-21. Đây là **bản chuẩn bị**, chưa phải tag/Release đã đạt DoD. Sau khi báo các issue, người dùng cho biết làm được tới đâu thì làm, cung cấp handle Bảo và yêu cầu MIT; phần chuẩn bị được bàn giao trên nhánh Minh, không tự merge/tag main.
 
-## Đã làm trong phạm vi Minh
+## Đã thực hiện
 
-- Manifest v1.3 có bench_cmd/soak_cmd và run_cmd mở vòng day. Không đổi gameplay tuning.
-- contract.py chấp nhận v1.3, yêu cầu lệnh đo; metadata nội bộ chuẩn hóa về v1.2 để gather/scenario vẫn dùng kho cá thể. inventory.py nhận v1.3 theo đúng schema v1.2, không vô tình quay về kho đếm.
-- README chạy clone sạch ≤3 lệnh, môi trường/điều khiển, test/headless/bench/soak, đóng gói và giới hạn thật. Credits rà asset/font/AI/starter/license; release notes nháp ở docs/releases/v1.0.0.md.
-- tools/package_release.py đóng đúng commit thành ZIP + receipt SHA-256; không lấy file chưa commit. tools/check_release.py thu log thật và báo chưa đạt, không giả lập bench/soak hay tự publish/tag.
-- Test riêng v1.3 giữ nguyên tuning/snapshot/event/schema v1.2 ở cả gather/quan/day: **5/5 đạt**. Gather P3 **30/30 đạt**.
-- Khôi phục handle minhh25 đã xác minh, sửa handle Hải theo repo/docs thành HaiVuuu. Phản tư Minh đã rút xuống 140 từ, lịch sử giữ ở history-before-release.md.
+- Manifest v1.3 khai bench_cmd/soak_cmd, run_cmd mở day. Gameplay tuning giữ nguyên v1.2. Bộ đọc chấp nhận v1.3 và chuẩn hóa metadata về v1.2; thêm v12_enabled theo API quan/day của Hải. Inventory v1.3 là cá thể, không quay về kho đếm.
+- README clone sạch trong 3 lệnh, môi trường/điều khiển, test/headless/bench/soak và giới hạn. Release notes nháp: docs/releases/v1.0.0.md.
+- LICENSE MIT theo yêu cầu Minh, mẫu OSI chính thức; CREDITS giữ attribution starter và kết quả rà. TEAM đủ 4 handle; phản tư Minh 140 từ, các file khác đều ≤200 từ. Bảo còn bản nháp chờ tự xác nhận.
+- Công cụ kiểm release thu log thật và báo chưa đạt; packager lấy đúng SHA Git, ZIP kèm receipt SHA-256, không lấy file chưa commit, không tự publish/tag.
+- Đã gộp main 7522453 có soak và sửa tương thích của Hải, giữ quyền sở hữu file đồng đội. Nhật ký AI cập nhật dòng Minh.
 
-## Issue phát hiện, không che bằng test xanh
+## Kiểm chứng thật
 
-| Vấn đề | Bằng chứng / chủ phần |
-|---|---|
-| Baseline main trước việc P4 đã lỗi: 165 test, 11 failure + lỗi bind localhost trong sandbox, 10 skip | baseline-tests.txt. Quan bật cá thể chỉ vì có freshness mặc dù manifest 1.1, gây mất kho đếm. Cần chủ quan/day + QA kiểm tích hợp |
-| Khi bật v1.3: regression 170 test, **20 failure, 16 error, 10 skip** | release-check-logs/regression.txt; nhiều fixture/assertion P1–P2 vẫn kho đếm. Đây không phải báo cáo toàn bộ test đạt |
-| Chưa có chonoi/bench.py và chonoi/soak.py | release-status.json. Theo kế hoạch Bảo/Hải sở hữu các module này; chưa có số FPS/10 Ngày để công bố |
-| TEAM thiếu handle Bảo; thiếu docs/members/<handle>.md của Bảo | release-check-logs/team.txt; đã hỏi người dùng, không tự bịa handle/đóng góp |
-| Không có LICENSE/COPYING; starter metadata license:null | CREDITS.md; chờ nguồn giấy phép/nhóm xác nhận |
-| Chưa có xác nhận UI cảnh báo/tương phản cao và ma trận QA P4 | Theo phạm vi Bảo/Hùng trong kế hoạch |
+| Kiểm tra | Kết quả | Bằng chứng |
+|---|---|---|
+| Test hỗ trợ contract v1.3 / giữ nguyên v1.2 | **5/5 đạt** | release-tests.txt |
+| Gather Phase 3 ứng viên | **30/30 đạt** | gather-p3-tests.txt |
+| Team checker | **4 handle đạt** | release-check-logs/team.txt |
+| Soak thật, seed 7, 10 Ngày, hai tiến trình chạy riêng để so lặp | **10/10 hoàn tất, 0 crash** mỗi lượt; gameplay khớp, bỏ duration_s (0,533s / 0,530s) | soak-1.json / soak-2.json và log |
+| Clone sạch local đúng commit ứng viên, 3 lệnh mở live | Menu hoạt động, cập bến → quan, kho là list | clean-clone-and-package.json |
+| ZIP tự tạo, không có .git, chạy headless gather | Đạt | clean-clone-and-package.json; package-receipt.json |
+| Full regression v1.3 sau gộp soak | **Chưa đạt: 172 test, 19 failure, 16 error, 10 skip** | release-check-logs/regression.txt |
 
-`release-status.json` và log này được tạo trên worktree chuẩn bị (base commit trong report); chưa phải artifact từ tag. Kết quả phải chạy lại trên main bàn giao sau khi gộp/sửa đủ. Không sửa file bench/soak/UI hoặc báo cáo QA độc quyền của đồng đội trong lần bàn giao này.
+Báo cáo máy: release-status.json. Baseline main trước việc Phase 4 đã lỗi 11 assertion (thêm lỗi sandbox bind localhost); log baseline-tests.txt giữ để phân biệt lỗi có sẵn. Lần kiểm cuối đã chạy ngoài giới hạn sandbox, không còn coi bind localhost là lỗi gameplay. Log text chỉ chuẩn hóa khoảng trắng cuối dòng để qua diff check, không thay kết quả.
 
-## Cách tiếp tục
+Clone hiện là clone sạch từ repo local ở SHA ghi trong JSON, chưa phải clone remote có commit Phase 4. Artifact ứng viên không phải artifact từ tag. Cần đóng/chạy lại đúng SHA main sau tích hợp; không dùng bằng chứng này để khẳng định full DoD.
 
-1. Hải/Bảo bàn giao module đo/soak; QA chuyển fixture/regression còn hiệu lực sang schema v1.2 và chạy smoke v1.3.
-2. Bổ sung handle/reflection còn thiếu và xác nhận LICENSE. Hoàn thiện CHANGELOG/retro/verification theo chủ phần.
-3. Chạy `python3 tools/check_release.py --measure --out dist/release-status.json`; kiểm clone sạch và UI.
-4. Gộp main, chốt đúng SHA, đặt phase-4/v1.0.0 cùng SHA, đóng ZIP bằng SHA đó rồi đính Release. Không phát hành bản chuẩn bị này như bản đã đạt DoD.
+## Còn vướng trước phát hành
+
+- Chưa có chonoi/bench.py (Bảo), chưa có số FPS/render/1% low/load để công bố. Không giả lập số đo.
+- Nhiều fixture/assertion P1–P2 còn kho đếm; cần QA migrate regression còn hiệu lực và Hải rà bàn giao/độ tươi/ID xuyên Ngày. Chưa coi các test skip là đạt.
+- Bảo cần tự xác nhận phản tư; UI ba cảnh báo và tương phản cao chưa kiểm thủ công. QA cần verification P4/artifact đúng commit; retro/changelog do chủ phần chốt.
+- Chưa gắn phase-4/v1.0.0 hoặc tạo GitHub Release. Mẫu notes ghi rõ giới hạn. Đợi kiểm đủ trên main rồi đặt hai tag cùng SHA và đính ZIP từ SHA đó.
+
+Giấy phép và handle đã được xử lý theo thông tin người dùng mới cung cấp; không còn dùng chúng làm blocker của báo cáo hiện tại. Tài liệu lịch sử được giữ ở history-before-release.md, không ghi nhận review/hành động cá nhân chưa diễn ra.

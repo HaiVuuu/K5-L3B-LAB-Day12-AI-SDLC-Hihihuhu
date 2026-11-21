@@ -35,6 +35,8 @@ def load_contract(path=DEFAULT_PATH) -> dict:
                 raise BadInput(f"contract v1.3 cần {key} là lệnh khác rỗng")
     # Ticket-04: chỉ thêm công cụ đo; các sim/scenario tiếp tục dùng chính schema v1.2.
     c["tuning"]["_contract_version"] = "1.2" if c["contract_version"] == "1.3" else c["contract_version"]
+    # Quan/Day từ nhánh Hải dùng cờ này cho kho rỗng và adapter chuyển tiếp.
+    c["tuning"]["v12_enabled"] = c["contract_version"] in ("1.2", "1.3")
     return c
 
 

@@ -28,14 +28,18 @@ class QuanSim:
         self.rng = streams
         self.ids = ids
         self.fresh_cfg = tuning.get("freshness")
-        self.v12 = self.fresh_cfg is not None
+        has_raw_stock = inventory is not None or "stock" in scenario
+        raw_stock = inventory if inventory is not None else scenario.get("stock", {})
+        self.v12 = bool(self.fresh_cfg) and (
+            isinstance(raw_stock, list)
+            or (not has_raw_stock and tuning.get("v12_enabled", False))
+        )
         p = scenario.get("player", {})
         self.pos = [float(c) for c in p.get("pos", t["start_pos"])]
         self.vel = [float(c) for c in p.get("vel", [0.0, 0.0])]
         self._tgt = None
         self._ramp_left = 0
 
-        raw_stock = inventory if inventory is not None else scenario.get("stock", [] if self.v12 else {})
         self._init_stock(raw_stock)
 
         self.hand = scenario.get("hand")

@@ -5,7 +5,7 @@ test_v13_scenario_uses_individual_validation (test_release_p4.ReleaseContract.te
 test_v13_snapshots_and_events_match_v12_in_all_three_modes (test_release_p4.ReleaseContract.test_v13_snapshots_and_events_match_v12_in_all_three_modes) ... ok
 
 ----------------------------------------------------------------------
-Ran 5 tests in 0.025s
+Ran 5 tests in 0.026s
 
 OK
 

@@ -16,8 +16,8 @@
 - Codex hỗ trợ Minh triển khai, kiểm chứng, phân tích migration và chuẩn bị release. Model/token/chi phí không được công cụ báo; không bịa số.
 - Claude Code được ghi trong nhật ký Hùng cho QA và UI làm thay; xem docs/ai-usage-log.md. Không suy đóng góp ngoài log/commit có bằng chứng.
 
-## LICENSE — rà 2026-11-21
+## LICENSE — cập nhật 2026-11-21
 
-- Không thấy LICENSE/COPYING trong checkout nhóm. Metadata GitHub của repo starter trả license:null tại lần kiểm.
-- Chưa có giấy phép do nhóm/giảng viên cung cấp trong phiên; không tự gắn MIT/CC0/CC-BY hoặc cấp quyền thay chủ mã nguồn.
-- Cần nhóm/giảng viên xác nhận tên/nguồn giấy phép trước chốt phát hành; giữ notice khi đã có bằng chứng. Đây là mục chờ xác nhận, không phải tuyên bố mã đã được cấp phép mở.
+- Minh yêu cầu thêm MIT; đã thêm LICENSE với copyright Hihihuhu contributors, dùng [mẫu MIT chính thức của Open Source Initiative](https://opensource.org/license/mit).
+- Attribution và lịch sử starter được giữ nguyên. Metadata repo starter trả license:null tại lần rà; không tuyên bố upstream đã tự cấp MIT hoặc đổi notice gốc.
+- Khi thêm asset/dependency mới, chủ module phải giữ giấy phép và notice riêng của nguồn đó; LICENSE của nhóm không thay notice bên thứ ba.

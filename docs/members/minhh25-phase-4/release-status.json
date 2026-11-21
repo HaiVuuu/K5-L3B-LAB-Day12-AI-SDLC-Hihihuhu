@@ -1,6 +1,34 @@
 {
   "release": "v1.0.0",
-  "commit": "24c65ddd2a31f6bb0e04387527fd4dc9871f37d5",
+  "commit": "21fef921644febf85681e37e51cdb45a07ac9993",
+  "worktree_status_at_check": [
+    "M  CHANGELOG.md",
+    " M CREDITS.md",
+    " M README.md",
+    " M TEAM.md",
+    " M chonoi/contract.py",
+    "M  chonoi/sim/day.py",
+    "M  chonoi/sim/quan.py",
+    "A  chonoi/soak.py",
+    " M docs/members/minhh25-phase-4/gather-p3-tests.txt",
+    " M docs/members/minhh25-phase-4/release-check-logs/regression.txt",
+    " M docs/members/minhh25-phase-4/release-check-logs/team.txt",
+    " M docs/members/minhh25-phase-4/release-tests.txt",
+    " M docs/releases/v1.0.0.md",
+    "M  docs/standup.md",
+    "M  tests/test_quan_p3.py",
+    " M tests/test_release_p4.py",
+    "A  tests/test_soak_p4.py",
+    " M tools/check_release.py",
+    "?? LICENSE",
+    "?? docs/members/CapybaraSlayer96.md",
+    "?? docs/members/minhh25-phase-4/clean-clone-and-package.json",
+    "?? docs/members/minhh25-phase-4/package-receipt.json",
+    "?? docs/members/minhh25-phase-4/soak-1.json",
+    "?? docs/members/minhh25-phase-4/soak-1.txt",
+    "?? docs/members/minhh25-phase-4/soak-2.json",
+    "?? docs/members/minhh25-phase-4/soak-2.txt"
+  ],
   "ready_for_team_release_review": false,
   "checks": [
     {
@@ -10,23 +38,23 @@
     },
     {
       "name": "team",
-      "passed": false,
+      "passed": true,
       "detail": "xem release-check-logs/team.txt"
     },
     {
       "name": "member_reflections",
-      "passed": false,
+      "passed": true,
       "detail": {
-        "missing": [
-          "Đoàn Xuân Duy Bảo"
-        ]
+        "missing": []
       }
     },
     {
       "name": "license_file",
-      "passed": false,
+      "passed": true,
       "detail": {
-        "found": [],
+        "found": [
+          "LICENSE"
+        ],
         "note": "Không tự gán giấy phép khi chưa được chủ mã nguồn xác nhận."
       }
     },
@@ -42,7 +70,7 @@
     },
     {
       "name": "soak_module",
-      "passed": false,
+      "passed": true,
       "detail": "chonoi/soak.py"
     },
     {
@@ -54,6 +82,7 @@
   "measurements": {},
   "remaining_manual_checks": [
     "clone sạch và UI cảnh báo/tương phản cao",
+    "các thành viên xác nhận phản tư thật, Bảo hiện còn nháp",
     "bằng chứng QA đúng commit main",
     "review rồi cùng commit cho phase-4/v1.0.0"
   ]

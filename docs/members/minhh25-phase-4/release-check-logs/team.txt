@@ -1,5 +1,4 @@
 $ /opt/homebrew/opt/python@3.13/bin/python3.13 tools/check_team.py
-KIỂM TRA DANH SÁCH THÀNH VIÊN KHÔNG ĐẠT:
-  - thành viên #3: GitHub handle chưa điền hoặc không hợp lệ ('')
+OK: 4 thành viên: minhh25, HaiVuuu, CapybaraSlayer96, hungvueducation-hash
 
-exit_code=1
+exit_code=0

@@ -1,4 +1,4 @@
-.F..................................................FF...............................ssF.....F....F...........FF.........................Exception in thread Thread-90 (_readerthread):
+....................................................................................ss..................................................Exception in thread Thread-90 (_readerthread):
 Traceback (most recent call last):
   File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
     self.run()
@@ -37,92 +37,8 @@ Traceback (most recent call last):
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 23: character maps to <undefined>
-.F.............sssssssssssss....
-======================================================================
-FAIL: test_real_harvest_transfers_to_quan_and_replays_byte_identically (test_gather.GatherHeadless.test_real_harvest_transfers_to_quan_and_replays_byte_identically)
+...............sssssssssssss......
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_gather.py", line 288, in test_real_harvest_transfers_to_quan_and_replays_byte_identically
-    self.assertEqual(snapshots(read_jsonl(quan))[0]["stock"], json.loads(inventories[0])["items"])
-AssertionError: [] != {'bong_sung': 1}
+Ran 173 tests in 85.282s
 
-======================================================================
-FAIL: test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='fish')
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_gather_p2.py", line 367, in test_new_fish_and_plant_export_inventory_to_separate_quan_process
-    self.assertEqual(snapshots(read_jsonl(quan))[0]["stock"], {kind: amount})
-AssertionError: [] != {'ca_keo': 2}
-
-======================================================================
-FAIL: test_new_fish_and_plant_export_inventory_to_separate_quan_process (test_gather_p2.P2UpgradesAndHeadless.test_new_fish_and_plant_export_inventory_to_separate_quan_process) (case='plant')
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_gather_p2.py", line 367, in test_new_fish_and_plant_export_inventory_to_separate_quan_process
-    self.assertEqual(snapshots(read_jsonl(quan))[0]["stock"], {kind: amount})
-AssertionError: [] != {'keo_neo': 1}
-
-======================================================================
-FAIL: test_chuoi_giu_nguyen_kho_qua_hai_buoi (test_integration.ChuoiGatherKhoQuan.test_chuoi_giu_nguyen_kho_qua_hai_buoi)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_integration.py", line 117, in test_chuoi_giu_nguyen_kho_qua_hai_buoi
-    self.assertEqual(counts(snapshots(read_jsonl(q))[0]["stock"]), want)
-AssertionError: {} != {'bong_dien_dien': 1, 'bong_sung': 2, 'ca_linh': 1, 'ca_loc': 1}
-- {}
-+ {'bong_dien_dien': 1, 'bong_sung': 2, 'ca_linh': 1, 'ca_loc': 1}
-
-======================================================================
-FAIL: test_hai_nut_mat_nuoc_vao_kho (test_integration.GatherRoiKhoQuan.test_hai_nut_mat_nuoc_vao_kho)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_integration.py", line 179, in test_hai_nut_mat_nuoc_vao_kho
-    self.assertEqual(counts(snapshots(read_jsonl(q))[0]["stock"]), {"bong_sung": 1})
-AssertionError: {} != {'bong_sung': 1}
-- {}
-+ {'bong_sung': 1}
-
-======================================================================
-FAIL: test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong (test_live_ui.LiveGates.test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_live_ui.py", line 77, in test_day_cap_ben_dung_o_evening_roi_result_roi_shop_mua_xong
-    self.assertEqual(state(g)["stock"], {"bong_sung": 1})
-AssertionError: [{'id': 'I1', 'kind': 'bong_sung', 'fresh': 100.0}] != {'bong_sung': 1}
-
-======================================================================
-FAIL: test_cook_pick_serve_and_paid_with_tip (test_quan.QuanSimTests.test_cook_pick_serve_and_paid_with_tip)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_quan.py", line 63, in test_cook_pick_serve_and_paid_with_tip
-    self.assertEqual(sess.snapshot()["stock"], {})
-AssertionError: [] != {}
-
-======================================================================
-FAIL: test_customer_arrives_reserves_stock_and_leaves_releases_stock (test_quan.QuanSimTests.test_customer_arrives_reserves_stock_and_leaves_releases_stock)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_quan.py", line 30, in test_customer_arrives_reserves_stock_and_leaves_releases_stock
-    self.assertEqual([e["name"] for e in evs], ["customer_arrived"])
-AssertionError: Lists differ: ['no_dish'] != ['customer_arrived']
-
-First differing element 0:
-'no_dish'
-'customer_arrived'
-
-- ['no_dish']
-+ ['customer_arrived']
-
-======================================================================
-FAIL: test_inv_01_gather_writes_inventory_quan_reads_it (test_smoke_p1.Integration.test_inv_01_gather_writes_inventory_quan_reads_it)
-Ví dụ smoke test trong PRD-0 mục G: cập bến ở tick 0, quán đọc kho đúng nội dung.
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\CLAUDE PROJECT\ai-thuc-chien-vingroup\coursework\day-12\lab\tests\test_smoke_p1.py", line 228, in test_inv_01_gather_writes_inventory_quan_reads_it
-    self.assertEqual(snapshots(read_jsonl(w.path("q.jsonl")))[0]["stock"], {"bong_sung": 2, "ca_loc": 1})
-AssertionError: [] != {'bong_sung': 2, 'ca_loc': 1}
-
-----------------------------------------------------------------------
-Ran 171 tests in 78.326s
-
-FAILED (failures=9, skipped=15)
+OK (skipped=15)

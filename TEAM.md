@@ -4,8 +4,8 @@
 
 | Thành viên | GitHub handle | Module chính | Vai quy trình | Người dự phòng cho |
 |---|---|---|---|---|
-| Nguyễn Đình Minh | minhh25 | `sim/gather` | Integrator | `sim/quan` |
-| Nguyễn Đình Vũ Hải | | `sim/quan` | Scrum / Release | `sim/gather` |
+| Nguyễn Đình Minh | | `sim/gather` | Integrator | `sim/quan` |
+| Nguyễn Đình Vũ Hải | HaiVuu | `sim/quan` | Scrum / Release | `sim/gather` |
 | Đoàn Xuân Duy Bảo | | `client/ui` | PO | `qa` |
 | Vũ Tiến Hùng | | `qa` | QA lead | `client/ui` |
 

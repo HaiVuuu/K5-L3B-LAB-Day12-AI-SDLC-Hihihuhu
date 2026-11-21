@@ -168,7 +168,7 @@ class QuanSim:
         occupied = {c["table_id"]: c["id"] for c in self.customers}
         if self.v12:
             stock_view = [
-                {"id": it["id"], "kind": it["kind"], "fresh": round(it["fresh"], 3)}
+                {"id": it["id"], "kind": it["kind"], "fresh": it["fresh"]}
                 for it in sort_by_id(self.stock_items)
             ]
         else:
@@ -344,7 +344,7 @@ class QuanSim:
                     stove["base_price"] = math.floor(self.menu[dish_id]["price"] * avg_fresh / 100.0)
                     used_sorted = sorted(used_items, key=lambda it: (it["kind"], id_key(it["id"])))
                     ev_data["items"] = [
-                        {"id": it["id"], "kind": it["kind"], "fresh": round(it["fresh"], 3)}
+                        {"id": it["id"], "kind": it["kind"], "fresh": it["fresh"]}
                         for it in used_sorted
                     ]
                 else:

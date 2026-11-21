@@ -21,7 +21,7 @@ def contract():
         return json.load(f)
 
 
-HAS_V12 = contract().get("contract_version") == "1.2"
+HAS_V12 = contract().get("contract_version") in ("1.2", "1.3")
 SKIP = unittest.skipUnless(HAS_V12, "game.contract.json chưa lên contract_version 1.2 — chờ Integrator bật v1.2")
 
 
@@ -109,16 +109,39 @@ class KhoSai(unittest.TestCase):
                                               "--out", w.path("o.jsonl"))[0], 2, block)
 
 
+@SKIP
 class ChoSimV12(unittest.TestCase):
-    """Chưa viết được chính xác khi plan chưa nêu đủ chi tiết; ghi lại để không quên."""
-
-    @unittest.skip("Chờ sim/quan v1.2 + công thức làm tròn: base_price = floor(giá × avg_fresh / 100), boa floor(base_price × 0.2)")
     def test_base_price_theo_do_tuoi(self):
-        pass
+        with Workdir() as w:
+            sc = write_json(w.path("sc.json"), {"quan": {
+                "player": {"pos": [2, 8]},
+                "stock": [it("I1", "ca_loc", 50)],
+                "random_customers": False,
+                "customers": [{"id": "C1", "table_id": "T1", "dish_id": "ca_loc_nuong_trui", "reserved": ["I1"]}],
+            }})
+            inp = write_json(w.path("in.json"), frames({"tick": 0, "interact": True}))
+            out = w.path("q.jsonl")
+            code, err = run_headless("--mode", "quan", "--seed", "1", "--ticks", "1", "--scenario", sc,
+                                     "--inputs", inp, "--out", out)
+            self.assertEqual(code, 0, err)
+            ev = events(read_jsonl(out), "cook_started")
+            self.assertEqual(len(ev), 1)
+            self.assertEqual(ev[0]["data"]["items"][0]["id"], "I1")
 
-    @unittest.skip("Chờ sim/quan v1.2: nhả & thử giữ lại đúng 1 lần khi cá thể giữ bị ươn; thiếu thì unfulfillable")
     def test_giu_lai_khi_hang_giu_bi_uon(self):
-        pass
+        with Workdir() as w:
+            sc = write_json(w.path("sc.json"), {"quan": {
+                "stock": [it("I1", "ca_loc", 30), it("I2", "ca_loc", 80)],
+                "random_customers": False,
+                "customers": [{"id": "C1", "table_id": "T1", "dish_id": "ca_loc_nuong_trui", "reserved": ["I1"]}],
+            }})
+            out = w.path("q.jsonl")
+            code, err = run_headless("--mode", "quan", "--seed", "1", "--ticks", "1", "--scenario", sc,
+                                     "--snapshot-every", "1", "--out", out)
+            self.assertEqual(code, 0, err)
+            rows = read_jsonl(out)
+            self.assertEqual(events(rows, "spoiled")[0]["data"]["item_id"], "I1")
+            self.assertEqual(snapshots(rows)[-1]["customers"][0]["reserved"], ["I2"])
 
 
 if __name__ == "__main__":

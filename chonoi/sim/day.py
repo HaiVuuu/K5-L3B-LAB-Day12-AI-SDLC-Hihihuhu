@@ -176,7 +176,7 @@ class DaySession:
 
     def _stock_for_shop(self):
         if getattr(self.sim, "v12", False):
-            return [{"id": it["id"], "kind": it["kind"], "fresh": round(it["fresh"], 3)}
+            return [{"id": it["id"], "kind": it["kind"], "fresh": it["fresh"]}
                     for it in sorted(self.sim.stock_items, key=lambda x: x["id"])]
         return {k: v for k, v in self.sim.stock.items() if v > 0}
 

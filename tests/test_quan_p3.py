@@ -101,7 +101,9 @@ class QuanPhase3Tests(unittest.TestCase):
         sess.step(idle())  # gather -> quan
         snap = sess.snapshot()
         self.assertEqual(snap["phase"], "quan")
-        self.assertEqual(snap["stock"], [{"id": "I1", "kind": "ca_loc", "fresh": 99.992}])
+        self.assertEqual(snap["stock"][0]["id"], "I1")
+        self.assertEqual(snap["stock"][0]["kind"], "ca_loc")
+        self.assertAlmostEqual(snap["stock"][0]["fresh"], 100.0 - 0.5 / 60.0, places=12)
 
 
 if __name__ == "__main__":

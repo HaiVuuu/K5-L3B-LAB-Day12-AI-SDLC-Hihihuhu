@@ -1,0 +1,1 @@
+{"quan": {"random_customers": false, "customers": [{"id": "C1", "table_id": "T1", "dish_id": "goi_bong_sung", "patience_ticks_left": 800}, {"id": "C2", "table_id": "T4", "dish_id": "ca_loc_nuong_trui", "patience_ticks_left": 3000}]}}

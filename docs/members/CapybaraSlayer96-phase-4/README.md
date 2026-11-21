@@ -8,13 +8,17 @@ Phần được giao theo `docs/plan/phase-4.md`: `chonoi/bench.py`, ba cảnh b
 python3 -m chonoi.bench --seed 42 --duration 30 --out bench.json
 ```
 
-Kết quả máy dev, Windows 11, Edge 157 headless, Python 3.14: [bench.json](bench.json)
+Ba lượt 30 s liên tiếp trên máy dev (Windows 11, Edge 157 headless, Python 3.14), đồ họa chợ nổi + animation bơi:
 
-```json
-{"avg_fps": 58.16, "p1_low_fps": 12.18, "frames": 1746, "measured_s": 30.022, "load_ms": 2778}
-```
+| Lượt | avg_fps | p1_low_fps | frames | load_ms |
+|---|---|---|---|---|
+| [1](bench-run1.json) | 60.0 | 41.11 | 1801 | 2083 |
+| [2](bench-run2.json) | 59.33 | 21.22 | 1780 | 1818 |
+| [3](bench-run3.json) | 56.94 | 9.43 | 1709 | 3598 |
 
-- Đạt mốc load ≤ 10 s. Chưa đạt 60 FPS avg (58.16, sát vsync 60 Hz của headless) và chưa đạt 30 FPS ở 1% low. Có vài khung bị giật; chưa điều tra nguyên nhân.
+[bench.json](bench.json) là lượt 2 (trung vị theo avg_fps).
+
+- Đạt mốc load ≤ 10 s ở cả ba lượt. avg_fps sát vsync 60 Hz nhưng chỉ lượt 1 chạm 60. 1% low dao động rất mạnh (9–41): chỉ lượt 1 đạt mốc 30. Máy dev đang chạy nhiều tiến trình khác; chưa tách được nguyên nhân giật là do game hay do máy, nên chưa kết luận là đạt.
 - Số này đo trên máy dev, không phải commit gắn tag. QA cần đo lại trên commit bàn giao.
 - Cần có Chrome, Chromium hoặc Edge. Không tìm thấy trình duyệt thì lệnh trả mã 1 và không ghi file. Đặt `CHONOI_BROWSER=<đường dẫn>` để chỉ định trình duyệt.
 

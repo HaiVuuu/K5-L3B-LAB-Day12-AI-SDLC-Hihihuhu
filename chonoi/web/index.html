@@ -184,6 +184,8 @@ function edge() { ctx.strokeStyle = hc ? "#ffffff" : P.edge; ctx.lineWidth = hc 
 // - đứng yên dưới nước thì đạp nước giữ người thẳng đứng; ở mặt nước thì nổi dập dềnh;
 // - bọt khí thở ra nổi lên đều (vận tốc giới hạn) rồi vỡ ở mặt nước.
 const swim = { ang: -Math.PI / 2, face: 1, phase: 0, t: null, puff: 0, bubbles: [] };
+// Ngưỡng cảnh báo UI (CL-07, CL-10); không phải số luật nên không nằm trong contract.
+const WARN_RATIO = 0.25, HURRY_TICKS = 30 * 60;
 const STRIDE_M = 0.9, BUBBLE_RISE = 1.2, BUBBLE_EVERY = 0.5;
 function stepSwim(p, underwater, now) {
   const dt = swim.t === null ? 0 : Math.min(0.1, (now - swim.t) / 1000);
@@ -501,10 +503,10 @@ function drawGather(w, h) {
   }
   // HUD trên: dải phẳng
   ctx.fillStyle = hc ? "#000000" : P.hud; ctx.fillRect(0, 0, w, top);
-  const hurry = snap.time_left_ticks <= 30 * 60;
+  const hurry = snap.time_left_ticks <= HURRY_TICKS;
   text("⏱ " + fmtTime(snap.time_left_ticks), 14, 28, { size: 20, color: hurry && Math.floor(snap.time_left_ticks / 15) % 2 ? "#ff5252" : hurry ? "#ff8a80" : P.ink });
   if (p && p.oxygen_ticks !== undefined && p.oxygen_max_ticks) {
-    const low = p.oxygen_ticks < p.oxygen_max_ticks * 0.25;
+    const low = p.oxygen_ticks < p.oxygen_max_ticks * WARN_RATIO;
     bar(110, 12, 220, 18, p.oxygen_ticks / p.oxygen_max_ticks, low ? "#ef5350" : "#6fb7c4", "Oxy " + Math.ceil(p.oxygen_ticks / 60) + "s");
   }
   if (p && p.hp !== undefined && p.hp_max) {
@@ -521,7 +523,7 @@ function drawGather(w, h) {
   if (near) alerts.push([chased ? "Thủy quái đang đuổi!" : "Thủy quái gần!", "#ce93d8"]);
   const underwaterNow = p && p.at_surface === false;
   if (underwaterNow && p.oxygen_ticks === 0) alerts.push(["Hết hơi! Lên mặt nước", "#ff5252"]);
-  else if (underwaterNow && p.oxygen_max_ticks && p.oxygen_ticks < p.oxygen_max_ticks * 0.25) alerts.push(["Oxy sắp hết! " + Math.ceil(p.oxygen_ticks / 60) + "s", "#ff8a80"]);
+  else if (underwaterNow && p.oxygen_max_ticks && p.oxygen_ticks < p.oxygen_max_ticks * WARN_RATIO) alerts.push(["Oxy sắp hết! " + Math.ceil(p.oxygen_ticks / 60) + "s", "#ff8a80"]);
   if (!snap.finished) alerts.forEach(([msg, col], i) => warn(msg, w / 2, 240 + i * 54, col));
   if (hc) text("Tương phản cao: BẬT (H)", 420, 28, { size: 14 });
   // danh sách cần lấy (ngày): nguyên liệu kế hoạch trừ phần đã có trong giỏ
@@ -606,7 +608,7 @@ function drawQuan(w, h) {
       ctx.fillStyle = c.state === "eating" ? "#6fbf5a" : P.nonShade; ctx.beginPath(); ctx.arc(cx, cy, 0.2 * s, 0, Math.PI * 2); ctx.fill();
       text(dishName(c.dish_id), cx, cy - 0.8 * s, { size: 16, align: "center", bold: true });
       if (c.patience_ticks_left !== undefined) {
-        const f = c.patience_ticks_left / patMax, low = c.state === "waiting" && f < 0.25;
+        const f = c.patience_ticks_left / patMax, low = c.state === "waiting" && f < WARN_RATIO;
         const blink = low && Math.floor(snap.tick / 12) % 2;
         bar(cx - 0.85 * s, cy + 0.7 * s, 1.7 * s, 10, f, low ? (blink ? "#ffffff" : "#d50000") : hc ? "#ffffff" : "#e0a15a");
         if (low) warnIcon(cx + 0.95 * s, cy - 0.3 * s, 26, hc ? "#ffff00" : "#ff5252", "#000000");
@@ -628,13 +630,13 @@ function drawQuan(w, h) {
   }
   // HUD
   ctx.fillStyle = hc ? "#000000" : P.hud; ctx.fillRect(0, 0, w, top);
-  const hurryQ = snap.time_left_ticks <= 30 * 60;
+  const hurryQ = snap.time_left_ticks <= HURRY_TICKS;
   text("⏱ " + fmtTime(snap.time_left_ticks), 14, 30, { size: 22, color: hurryQ && Math.floor(snap.time_left_ticks / 15) % 2 ? "#ff5252" : hurryQ ? "#ff8a80" : P.ink });
   text(`Tiền ${snap.money ?? 0}k · uy tín ${(snap.reputation ?? 0).toFixed(1)} · điểm ${snap.score ?? 0}`, 120, 30, { size: 20 });
   const sm = summarize(stockItems(snap.stock));
   text("Kho: " + (sm.text || "(trống)"), 14, 56, { size: 18, color: sm.bad ? "#ff8a80" : P.muted });
   const waiting = (snap.customers || []).filter((c) => c.state === "waiting");
-  const angry = waiting.filter((c) => c.patience_ticks_left < patMax * 0.25);
+  const angry = waiting.filter((c) => c.patience_ticks_left < patMax * WARN_RATIO);
   waiting.slice(0, 5).forEach((c, i) => text((angry.includes(c) ? "! " : "") + `${c.table_id}: ${dishName(c.dish_id)} · ${Math.ceil((c.patience_ticks_left || 0) / 60)}s`, w - 14, 30 + i * 24, { size: 18, align: "right", color: angry.includes(c) ? "#ff8a80" : P.ink }));
   if (angry.length && !snap.finished) warn("Khách sắp giận! " + angry.map((c) => c.table_id).join(", "), w / 2, h - 60, "#ff8a80");
   if (hc) text("Tương phản cao: BẬT (H)", 520, 30, { size: 14 });

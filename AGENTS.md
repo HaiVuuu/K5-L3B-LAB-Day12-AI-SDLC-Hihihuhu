@@ -29,4 +29,6 @@
 - `python3 tools/check_gather.py`: command nhóm, chạy 23 test luật gather trước khi bàn giao lát 1–2.
 - `python3 tools/check_gather_replay.py`: command nhóm, chạy trước tích hợp/tag; so byte JSONL + kho ở hai lượt cùng seed, kiểm quán đọc kho cho 4 fixture trong `tests/fixtures/gather-replay.json`.
 - Phase 1: đối chiếu sự kiện với PRD-0 E–G và `docs/contracts/README.md`; không coi smoke xanh là đã hoàn thiện luật quán. Chỉ tag trên `main` sau kiểm chứng toàn nhóm; không ghi nhận review/commit/bằng chứng chưa xảy ra.
-- PRD-0 đầy đủ do người dùng cung cấp: `docs/requirements/phase-1.txt`. Đọc trước khi sửa luật Phase 1; Ticket phase sau chưa có trong repo.
+- PRD-0 đầy đủ: `docs/requirements/phase-1.txt`; TICKET-02: `docs/requirements/phase-2.txt`. Đọc đúng phase trước khi sửa luật.
+- Phase 2 phần Minh: `PYTHONPATH=tests:. python3 -m unittest discover -s tests -p test_gather_p2.py -v`. API day/active_upgrades và lý do cập nhật regression ở `docs/contracts/phase-2.md`.
+- Tuân thủ quyền sở hữu `docs/plan/phase-2.md`: Minh không sửa scenario/runner/day/UI hay báo cáo QA; nhật ký/bằng chứng module đặt ở `docs/members/minhh25-phase-2/` để QA tổng hợp. Không gắn tag phase-2 khi chưa kiểm toàn nhóm trên main.
